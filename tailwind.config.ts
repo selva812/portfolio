@@ -1,0 +1,11 @@
+module.exports={
+    darkmode:'class',
+    theme:{
+        extend:{
+            colors:{
+                dark:'#1a1a1a'
+            },
+        },
+    },
+    plugins:[],
+}
