@@ -2,13 +2,14 @@
   "name": "portfolio",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "postinstall": "prisma generate && npm build",
-    "lint": "next lint"
-  },
+"scripts": {
+  "dev": "next dev --turbopack",
+  "build": "prisma generate && next build",
+  "start": "next start",
+  "postinstall": "prisma generate",
+  "lint": "next lint",
+  "vercel-build": "prisma generate && next build"
+},
   "dependencies": {
     "@prisma/client": "^6.13.0",
     "@radix-ui/react-avatar": "^1.1.10",
