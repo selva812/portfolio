@@ -1,36 +1,47 @@
-import { createSlice , PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export type ThemeMode ='light' | 'dark';
+export type ThemeMode = 'light' | 'dark';
 
 interface ThemeState {
     mode: ThemeMode
 }
-const getinitialstate =():ThemeMode=>{
-    if(typeof window !== 'undefined'){
-        const storedtheme = localStorage.getItem('theme') as ThemeMode | null;
-        if(storedtheme) return storedtheme
 
-        const prefersDark = window.matchMedia('(prefers-color-scheme:dark)').matches;
-        return prefersDark ? "dark" :'light'
+const getInitialState = (): ThemeMode => {
+    if (typeof window !== 'undefined') {
+        const storedTheme = localStorage.getItem('theme') as ThemeMode | null;
+        if (storedTheme) return storedTheme;
+
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        return prefersDark ? "dark" : "light";
     }
     return 'light';
 }
-const initialState :ThemeState={
-    mode:getinitialstate()
+
+const initialState: ThemeState = {
+    mode: getInitialState()
 }
 
-const themeslice = createSlice({
-    name:'theme',
+const themeSlice = createSlice({
+    name: 'theme',
     initialState,
-    reducers:{
-        toggleTheme:(state)=>{
-            state.mode = state.mode === 'light' ? 'dark' :'light'
+    reducers: {
+        toggleTheme: (state) => {
+            const newMode = state.mode === 'light' ? 'dark' : 'light';
+            state.mode = newMode;
+            // Persist to localStorage
+            if (typeof window !== 'undefined') {
+                localStorage.setItem('theme', newMode);
+            }
         },
-        settheme :(state ,action: PayloadAction<ThemeMode>)=>{
-            state.mode = action.payload
+        setTheme: (state, action: PayloadAction<ThemeMode>) => {
+            state.mode = action.payload;
+            // Persist to localStorage
+            if (typeof window !== 'undefined') {
+                localStorage.setItem('theme', action.payload);
+            }
         }
     }
-})
+});
 
-export const {toggleTheme,settheme} =themeslice.actions;
-export default themeslice.reducer;
+export const { toggleTheme, setTheme } = themeSlice.actions;
+export default themeSlice.reducer;

@@ -29,8 +29,11 @@ const Experience = () => {
       initial="hidden"
       animate={inView ? "show" : "hidden"}
       variants={container}
-      className="max-w-4xl mx-auto px-4 sm:px-6 py-12"
+      className="max-w-4xl mx-auto px-4 sm:px-6 py-12 bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-indigo-900 dark:to-purple-900 rounded-2xl shadow-lg relative overflow-hidden"
+      // className="max-w-4xl mx-auto px-4 sm:px-6 py-12"
     >
+     {/* Background decoration */}
+
       <motion.h2 
         variants={item}
         className="text-3xl font-bold mb-8 text-gray-900 dark:text-white text-center"
@@ -51,7 +54,8 @@ const Experience = () => {
         {/* Experience card */}
         <motion.div 
           variants={item}
-          className="mb-10 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg dark:hover:shadow-indigo-900/30 transition-shadow duration-300"
+          className="mb-10 p-6 bg-white/80 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl dark:hover:shadow-indigo-900/30 transition-all duration-300 border border-white/50 dark:border-gray-700/50 relative overflow-hidden"
+          // className="mb-10 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg dark:hover:shadow-indigo-900/30 transition-shadow duration-300"
         >
           <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4 gap-2">
             <motion.h3 

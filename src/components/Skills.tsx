@@ -60,8 +60,15 @@ const SkillsSection: React.FC = () => {
       initial="hidden"
       animate={inView ? "show" : "hidden"}
       variants={container}
-      className="max-w-6xl mx-auto px-4 sm:px-6 py-12"
+      className="max-w-6xl mx-auto px-4 sm:px-6 py-12 bg-gradient-to-br from-indigo-50 via-blue-50 to-cyan-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-indigo-900 dark:to-blue-900 rounded-2xl shadow-lg relative overflow-hidden"
+      // className="max-w-6xl mx-auto px-4 sm:px-6 py-12"
     >
+      {/* Animated background elements */}
+<div className="absolute inset-0">
+  <div className="absolute top-10 left-10 w-20 h-20 bg-gradient-to-r from-blue-300/20 to-purple-300/20 dark:from-blue-600/10 dark:to-purple-600/10 rounded-full animate-pulse"></div>
+  <div className="absolute top-32 right-20 w-16 h-16 bg-gradient-to-r from-cyan-300/20 to-blue-300/20 dark:from-cyan-600/10 dark:to-blue-600/10 rounded-full animate-pulse delay-700"></div>
+  <div className="absolute bottom-20 left-32 w-24 h-24 bg-gradient-to-r from-indigo-300/20 to-cyan-300/20 dark:from-indigo-600/10 dark:to-cyan-600/10 rounded-full animate-pulse delay-1000"></div>
+</div>
       <motion.h2 
         variants={item}
         className="text-3xl font-bold mb-12 text-center text-gray-900 dark:text-white"
@@ -94,7 +101,7 @@ const SkillsSection: React.FC = () => {
               <motion.li 
                 key={index}
                 variants={item}
-                className="flex items-start text-gray-700 dark:text-gray-300"
+               className=" flex items-start text-gray-700 dark:text-gray-300 bg-white/80 dark:bg-gray-800/90 backdrop-blur-sm p-6 rounded-xl shadow-lg hover:shadow-xl dark:hover:shadow-indigo-900/30 transition-all duration-300 border border-white/50 dark:border-gray-700/50 relative overflow-hidden group"
               >
                 <span className="w-2 h-2 mt-2 mr-3 bg-indigo-600 dark:bg-indigo-400 rounded-full flex-shrink-0"></span>
                 <span>{skill}</span>
@@ -127,7 +134,7 @@ const SkillsSection: React.FC = () => {
               <motion.li 
                 key={index}
                 variants={item}
-                className="flex items-start text-gray-700 dark:text-gray-300"
+               className=" flex items-start text-gray-700 dark:text-gray-300 bg-white/80 dark:bg-gray-800/90 backdrop-blur-sm p-6 rounded-xl shadow-lg hover:shadow-xl dark:hover:shadow-indigo-900/30 transition-all duration-300 border border-white/50 dark:border-gray-700/50 relative overflow-hidden group"
               >
                 <span className="w-2 h-2 mt-2 mr-3 bg-indigo-600 dark:bg-indigo-400 rounded-full flex-shrink-0"></span>
                 <span>{skill}</span>
@@ -160,7 +167,8 @@ const SkillsSection: React.FC = () => {
               <motion.li 
                 key={index}
                 variants={item}
-                className="flex items-start text-gray-700 dark:text-gray-300"
+                className=" flex items-start text-gray-700 dark:text-gray-300 bg-white/80 dark:bg-gray-800/90 backdrop-blur-sm p-6 rounded-xl shadow-lg hover:shadow-xl dark:hover:shadow-indigo-900/30 transition-all duration-300 border border-white/50 dark:border-gray-700/50 relative overflow-hidden group"
+                // className="flex items-start text-gray-700 dark:text-gray-300"
               >
                 <span className="w-2 h-2 mt-2 mr-3 bg-indigo-600 dark:bg-indigo-400 rounded-full flex-shrink-0"></span>
                 <span>{skill}</span>
@@ -183,7 +191,8 @@ const SkillsSection: React.FC = () => {
             <motion.div 
               key={index}
               variants={item}
-              className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-sm hover:shadow-md dark:hover:shadow-indigo-900/20 transition-shadow duration-300"
+           className="bg-white/80 dark:bg-gray-800/90 backdrop-blur-sm p-5 rounded-xl shadow-md hover:shadow-lg dark:hover:shadow-indigo-900/20 transition-all duration-300 border border-white/30 dark:border-gray-700/30 group hover:border-indigo-200 dark:hover:border-indigo-700"
+              // className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-sm hover:shadow-md dark:hover:shadow-indigo-900/20 transition-shadow duration-300"
             >
               <div className="flex justify-between items-center mb-3">
                 <span className="font-medium text-gray-900 dark:text-white">{skill.name}</span>

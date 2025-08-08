@@ -26,7 +26,7 @@ export default function HeaderComponent() {
     { name: "Skills", id: "skills" },
     { name: "Projects", id: "projects" },
     { name: "Contact", id: "contact" },
-  ];  
+  ];
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 150; // Add an offset
@@ -66,13 +66,13 @@ export default function HeaderComponent() {
   const handleNavClick = (id: string) => {
     setActiveTab(id);
     setIsMenuOpen(false);
-  
+
     const section = document.getElementById(id);
     if (section) {
       const headerOffset = 80; // Adjust this value based on your header height
       const elementPosition = section.getBoundingClientRect().top + window.scrollY;
       const offsetPosition = elementPosition - headerOffset;
-  
+
       window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
     }
   };
@@ -80,8 +80,8 @@ export default function HeaderComponent() {
     <>
       <header
         className={`fixed w-full z-50 transition-all duration-300 ${scrolled
-            ? "bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm shadow-sm "
-            : "bg-transparent "
+          ? "bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm shadow-sm "
+          : "bg-transparent "
           }`}
       >
         <div className="container mx-auto px-4 flex justify-between items-center">
@@ -100,7 +100,7 @@ export default function HeaderComponent() {
             {navlist.map((item, index) => (
               <div
                 key={index}
-                onClick={()=>handleNavClick(item.id)}
+                onClick={() => handleNavClick(item.id)}
                 className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white font-medium transition-colors duration-300 relative group"
               >
                 {item.name}
@@ -194,25 +194,27 @@ export default function HeaderComponent() {
         </AnimatePresence>
       </header>
       <main className="container mx-auto px-6 py-16">
-  <section id="home"><HeroSection/></section>
-  
-  {/* Create a flex container for about sidebar and main content */}
-  <div className="flex gap-8">
-    {/* About sidebar - will stick to the left */}
-    <aside className="w-1/3">
-      <AboutSidebar />
-    </aside>
-    
-    {/* Main content area - will scroll on the right */}
-    <div className="flex-1 space-y-16">
-      <section id="experience"><Experience /></section>
-      <section id="skills"><SkillsSection /></section>
-      <section id="education"><EducationSection /></section>
-      <section id="project"><Projects /></section>
-      <section id="contact"><ContactSection /></section>
-    </div>
-  </div>
-</main>
+        <section id="home">
+          <HeroSection />
+        </section>
+
+        <div className="flex flex-col md:flex-row gap-8">
+          {/* Sidebar - hidden on small screens */}
+          <aside className="w-full md:w-1/3 ">
+            <AboutSidebar />
+          </aside>
+
+          {/* Main content - takes full width on mobile */}
+          <div className="w-full md:flex-1 space-y-16">
+            <section id="experience"><Experience /></section>
+            <section id="skills"><SkillsSection /></section>
+            <section id="education"><EducationSection /></section>
+            <section id="project"><Projects /></section>
+            <section id="contact"><ContactSection /></section>
+          </div>
+        </div>
+      </main>
+
 
       {/* Footer */}
       <footer className="bg-white dark:bg-gray-800 shadow-md mt-2 sticky bottom-0 w-full z-20">
