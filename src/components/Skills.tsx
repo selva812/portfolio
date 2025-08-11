@@ -40,18 +40,25 @@ const SkillsSection: React.FC = () => {
 
   const item = {
     hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+    show: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { 
+        duration: 0.5,
+        ease: "easeOut"
+      } 
+    }
   };
 
   const progressBar = {
     hidden: { width: 0 },
-    show: { 
-      width: '100%',
+    show: (percentage: number) => ({
+      width: `${percentage}%`,
       transition: { 
         duration: 1,
         ease: "easeOut"
       }
-    }
+    })
   };
 
   return (
@@ -60,33 +67,30 @@ const SkillsSection: React.FC = () => {
       initial="hidden"
       animate={inView ? "show" : "hidden"}
       variants={container}
-      className="max-w-6xl mx-auto px-4 sm:px-6 py-12 bg-gradient-to-br from-indigo-50 via-blue-50 to-cyan-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-indigo-900 dark:to-blue-900 rounded-2xl shadow-lg relative overflow-hidden"
-      // className="max-w-6xl mx-auto px-4 sm:px-6 py-12"
+      className="max-w-6xl mx-auto px-4 sm:px-6 py-12 bg-white"
     >
-      {/* Animated background elements */}
-<div className="absolute inset-0">
-  <div className="absolute top-10 left-10 w-20 h-20 bg-gradient-to-r from-blue-300/20 to-purple-300/20 dark:from-blue-600/10 dark:to-purple-600/10 rounded-full animate-pulse"></div>
-  <div className="absolute top-32 right-20 w-16 h-16 bg-gradient-to-r from-cyan-300/20 to-blue-300/20 dark:from-cyan-600/10 dark:to-blue-600/10 rounded-full animate-pulse delay-700"></div>
-  <div className="absolute bottom-20 left-32 w-24 h-24 bg-gradient-to-r from-indigo-300/20 to-cyan-300/20 dark:from-indigo-600/10 dark:to-cyan-600/10 rounded-full animate-pulse delay-1000"></div>
-</div>
       <motion.h2 
         variants={item}
-        className="text-3xl font-bold mb-12 text-center text-gray-900 dark:text-white"
+        className="text-3xl font-bold mb-12 text-center text-gray-900 relative"
       >
-        Technical Skills
+        <span className="relative z-10 px-4 bg-white">Technical Skills</span>
+        <span className="absolute top-1/2 left-0 w-full h-0.5 bg-gray-200 -z-0"></span>
       </motion.h2>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
         {/* Frontend Skills */}
         <motion.div 
           variants={item}
-          className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-lg dark:hover:shadow-indigo-900/30 transition-shadow duration-300"
+          className="bg-white p-6 rounded-xl border border-gray-200 hover:border-blue-300 shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden group"
+          whileHover={{ y: -5 }}
         >
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+          
           <motion.h3 
             whileHover={{ x: 3 }}
-            className="text-xl font-semibold mb-6 text-indigo-600 dark:text-indigo-400 flex items-center"
+            className="text-xl font-semibold mb-6 text-blue-600 flex items-center group-hover:text-blue-700 transition-colors"
           >
-            <span className="w-3 h-3 mr-2 bg-indigo-600 dark:bg-indigo-400 rounded-full"></span>
+            <span className="w-3 h-3 mr-2 bg-blue-600 rounded-full group-hover:bg-blue-700 transition-colors"></span>
             Frontend Development
           </motion.h3>
           <ul className="space-y-4">
@@ -101,9 +105,10 @@ const SkillsSection: React.FC = () => {
               <motion.li 
                 key={index}
                 variants={item}
-               className=" flex items-start text-gray-700 dark:text-gray-300 bg-white/80 dark:bg-gray-800/90 backdrop-blur-sm p-6 rounded-xl shadow-lg hover:shadow-xl dark:hover:shadow-indigo-900/30 transition-all duration-300 border border-white/50 dark:border-gray-700/50 relative overflow-hidden group"
+                className="flex items-start text-gray-700 hover:text-gray-900 transition-colors p-3 rounded-lg hover:bg-blue-50"
+                whileHover={{ x: 5 }}
               >
-                <span className="w-2 h-2 mt-2 mr-3 bg-indigo-600 dark:bg-indigo-400 rounded-full flex-shrink-0"></span>
+                <span className="w-2 h-2 mt-2 mr-3 bg-blue-600 rounded-full flex-shrink-0"></span>
                 <span>{skill}</span>
               </motion.li>
             ))}
@@ -113,13 +118,16 @@ const SkillsSection: React.FC = () => {
         {/* Backend Skills */}
         <motion.div 
           variants={item}
-          className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-lg dark:hover:shadow-indigo-900/30 transition-shadow duration-300"
+          className="bg-white p-6 rounded-xl border border-gray-200 hover:border-blue-300 shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden group"
+          whileHover={{ y: -5 }}
         >
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+          
           <motion.h3 
             whileHover={{ x: 3 }}
-            className="text-xl font-semibold mb-6 text-indigo-600 dark:text-indigo-400 flex items-center"
+            className="text-xl font-semibold mb-6 text-blue-600 flex items-center group-hover:text-blue-700 transition-colors"
           >
-            <span className="w-3 h-3 mr-2 bg-indigo-600 dark:bg-indigo-400 rounded-full"></span>
+            <span className="w-3 h-3 mr-2 bg-blue-600 rounded-full group-hover:bg-blue-700 transition-colors"></span>
             Backend Development
           </motion.h3>
           <ul className="space-y-4">
@@ -134,9 +142,10 @@ const SkillsSection: React.FC = () => {
               <motion.li 
                 key={index}
                 variants={item}
-               className=" flex items-start text-gray-700 dark:text-gray-300 bg-white/80 dark:bg-gray-800/90 backdrop-blur-sm p-6 rounded-xl shadow-lg hover:shadow-xl dark:hover:shadow-indigo-900/30 transition-all duration-300 border border-white/50 dark:border-gray-700/50 relative overflow-hidden group"
+                className="flex items-start text-gray-700 hover:text-gray-900 transition-colors p-3 rounded-lg hover:bg-blue-50"
+                whileHover={{ x: 5 }}
               >
-                <span className="w-2 h-2 mt-2 mr-3 bg-indigo-600 dark:bg-indigo-400 rounded-full flex-shrink-0"></span>
+                <span className="w-2 h-2 mt-2 mr-3 bg-blue-600 rounded-full flex-shrink-0"></span>
                 <span>{skill}</span>
               </motion.li>
             ))}
@@ -146,13 +155,16 @@ const SkillsSection: React.FC = () => {
         {/* Mobile & Other Skills */}
         <motion.div 
           variants={item}
-          className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-lg dark:hover:shadow-indigo-900/30 transition-shadow duration-300"
+          className="bg-white p-6 rounded-xl border border-gray-200 hover:border-blue-300 shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden group"
+          whileHover={{ y: -5 }}
         >
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+          
           <motion.h3 
             whileHover={{ x: 3 }}
-            className="text-xl font-semibold mb-6 text-indigo-600 dark:text-indigo-400 flex items-center"
+            className="text-xl font-semibold mb-6 text-blue-600 flex items-center group-hover:text-blue-700 transition-colors"
           >
-            <span className="w-3 h-3 mr-2 bg-indigo-600 dark:bg-indigo-400 rounded-full"></span>
+            <span className="w-3 h-3 mr-2 bg-blue-600 rounded-full group-hover:bg-blue-700 transition-colors"></span>
             Mobile & Other Skills
           </motion.h3>
           <ul className="space-y-4">
@@ -167,10 +179,10 @@ const SkillsSection: React.FC = () => {
               <motion.li 
                 key={index}
                 variants={item}
-                className=" flex items-start text-gray-700 dark:text-gray-300 bg-white/80 dark:bg-gray-800/90 backdrop-blur-sm p-6 rounded-xl shadow-lg hover:shadow-xl dark:hover:shadow-indigo-900/30 transition-all duration-300 border border-white/50 dark:border-gray-700/50 relative overflow-hidden group"
-                // className="flex items-start text-gray-700 dark:text-gray-300"
+                className="flex items-start text-gray-700 hover:text-gray-900 transition-colors p-3 rounded-lg hover:bg-blue-50"
+                whileHover={{ x: 5 }}
               >
-                <span className="w-2 h-2 mt-2 mr-3 bg-indigo-600 dark:bg-indigo-400 rounded-full flex-shrink-0"></span>
+                <span className="w-2 h-2 mt-2 mr-3 bg-blue-600 rounded-full flex-shrink-0"></span>
                 <span>{skill}</span>
               </motion.li>
             ))}
@@ -181,31 +193,33 @@ const SkillsSection: React.FC = () => {
       {/* Skills Proficiency */}
       <motion.div variants={item}>
         <motion.h3 
-          className="text-2xl font-semibold mb-8 text-center text-gray-900 dark:text-white"
+          className="text-2xl font-semibold mb-8 text-center text-gray-900 relative"
           variants={item}
         >
-          Skills Proficiency
+          <span className="relative z-10 px-4 bg-white">Skills Proficiency</span>
+          <span className="absolute top-1/2 left-0 w-full h-0.5 bg-gray-200 -z-0"></span>
         </motion.h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {skillsList.map((skill, index) => (
             <motion.div 
               key={index}
               variants={item}
-           className="bg-white/80 dark:bg-gray-800/90 backdrop-blur-sm p-5 rounded-xl shadow-md hover:shadow-lg dark:hover:shadow-indigo-900/20 transition-all duration-300 border border-white/30 dark:border-gray-700/30 group hover:border-indigo-200 dark:hover:border-indigo-700"
-              // className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-sm hover:shadow-md dark:hover:shadow-indigo-900/20 transition-shadow duration-300"
+              className="bg-white p-5 rounded-xl border border-gray-200 hover:border-blue-300 shadow-sm hover:shadow-md transition-all duration-300 group"
+              whileHover={{ y: -3 }}
             >
               <div className="flex justify-between items-center mb-3">
-                <span className="font-medium text-gray-900 dark:text-white">{skill.name}</span>
-                <span className="text-indigo-600 dark:text-indigo-400 font-medium">{skill.percentage}%</span>
+                <span className="font-medium text-gray-900 group-hover:text-blue-600 transition-colors">
+                  {skill.name}
+                </span>
+                <span className="text-blue-600 font-medium">{skill.percentage}%</span>
               </div>
-              <div className="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-2.5 overflow-hidden">
+              <div className="w-full bg-gray-100 rounded-full h-2.5 overflow-hidden">
                 <motion.div 
-                  className="bg-gradient-to-r from-indigo-500 to-purple-500 h-2.5 rounded-full"
-                  style={{ width: `${skill.percentage}%` }}
+                  className="bg-gradient-to-r from-blue-500 to-blue-600 h-2.5 rounded-full"
+                  custom={skill.percentage}
                   variants={progressBar}
                   initial="hidden"
                   animate={inView ? "show" : "hidden"}
-                  custom={skill.percentage}
                 />
               </div>
             </motion.div>

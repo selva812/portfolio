@@ -15,7 +15,14 @@ const Experience = () => {
 
   const item = {
     hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+    show: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { 
+        duration: 0.5,
+        ease: "easeOut"
+      } 
+    }
   };
 
   const [ref, inView] = useInView({
@@ -29,44 +36,46 @@ const Experience = () => {
       initial="hidden"
       animate={inView ? "show" : "hidden"}
       variants={container}
-      className="max-w-4xl mx-auto px-4 sm:px-6 py-12 bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-indigo-900 dark:to-purple-900 rounded-2xl shadow-lg relative overflow-hidden"
-      // className="max-w-4xl mx-auto px-4 sm:px-6 py-12"
+      className="max-w-4xl mx-auto px-4 sm:px-6 py-12 bg-white"
     >
-     {/* Background decoration */}
-
       <motion.h2 
         variants={item}
-        className="text-3xl font-bold mb-8 text-gray-900 dark:text-white text-center"
+        className="text-3xl font-bold mb-12 text-gray-900 text-center relative"
       >
-        Work Experience
+        <span className="relative z-10 px-4 bg-white">Work Experience</span>
+        <span className="absolute top-1/2 left-0 w-full h-0.5 bg-gray-200 -z-0"></span>
       </motion.h2>
 
       <motion.div 
         variants={container}
-        className="relative pl-8 sm:pl-12 pb-12 border-l-2 border-indigo-600 dark:border-indigo-400"
+        className="relative pl-8 sm:pl-12 pb-12 border-l-2 border-blue-500"
       >
-        {/* Timeline dot */}
+        {/* Animated timeline dot */}
         <motion.div 
           variants={item}
-          className="absolute w-6 h-6 bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 rounded-full -left-[13px] top-1 shadow-md"
+          className="absolute w-6 h-6 bg-blue-500 rounded-full -left-[13px] top-1 shadow-md"
+          whileHover={{ scale: 1.2, backgroundColor: "#3B82F6" }}
         ></motion.div>
 
-        {/* Experience card */}
+        {/* Experience card with enhanced hover effects */}
         <motion.div 
           variants={item}
-          className="mb-10 p-6 bg-white/80 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl dark:hover:shadow-indigo-900/30 transition-all duration-300 border border-white/50 dark:border-gray-700/50 relative overflow-hidden"
-          // className="mb-10 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg dark:hover:shadow-indigo-900/30 transition-shadow duration-300"
+          className="mb-10 p-6 bg-white rounded-xl border border-gray-200 hover:border-blue-300 shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden group"
+          whileHover={{ y: -5 }}
         >
+          {/* Glow effect on hover */}
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+          
           <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4 gap-2">
             <motion.h3 
               whileHover={{ x: 3 }}
-              className="text-xl font-semibold text-gray-900 dark:text-white"
+              className="text-xl font-semibold text-gray-900 group-hover:text-blue-600 transition-colors"
             >
               Full Stack Developer
             </motion.h3>
             <motion.div 
               whileHover={{ scale: 1.05 }}
-              className="inline-flex items-center px-4 py-1.5 rounded-full text-sm bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-300 font-medium border border-indigo-200 dark:border-indigo-700"
+              className="inline-flex items-center px-4 py-1.5 rounded-full text-sm bg-blue-100 text-blue-600 font-medium border border-blue-200 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-colors"
             >
               July 2024 - Present
             </motion.div>
@@ -74,14 +83,14 @@ const Experience = () => {
 
           <motion.p 
             variants={item}
-            className="text-indigo-600 dark:text-indigo-400 mb-6 font-medium"
+            className="text-blue-600 mb-6 font-medium"
           >
             Intelixent IT Solutions, Madurai
           </motion.p>
 
           <motion.ul 
             variants={container}
-            className="space-y-4 list-disc pl-5"
+            className="space-y-4 list-disc pl-5 marker:text-blue-400"
           >
             {[
               "Developed and maintained 3+ full stack web and mobile applications using Next.js, Tailwind CSS, and React Native, ensuring seamless user experiences across platforms.",
@@ -94,7 +103,8 @@ const Experience = () => {
               <motion.li 
                 key={index}
                 variants={item}
-                className="text-gray-700 dark:text-gray-300 leading-relaxed"
+                className="text-gray-700 leading-relaxed hover:text-gray-900 transition-colors"
+                whileHover={{ x: 5 }}
               >
                 {point}
               </motion.li>
@@ -105,7 +115,7 @@ const Experience = () => {
             variants={item}
             className="mt-8"
           >
-            <h4 className="font-medium mb-4 text-gray-900 dark:text-white">Tools & Technologies:</h4>
+            <h4 className="font-medium mb-4 text-gray-900">Tools & Technologies:</h4>
             <div className="flex flex-wrap gap-3">
               {[
                 'Next.js',
@@ -119,13 +129,22 @@ const Experience = () => {
                 'MySQL',
                 'Git',
                 'Figma',
-                'Redux Toolkit'
+                'Redux',
+                'Redux Toolkit',
+                'Puppeteer',
+                'Prisma',
+                'Framer Motion',
+                'Rest API'
               ].map((tech, index) => (
                 <motion.span
                   key={index}
                   variants={item}
-                  whileHover={{ y: -3 }}
-                  className="px-3 py-1.5 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-gray-700 dark:to-gray-800 border border-indigo-200 dark:border-gray-600 rounded-full text-sm font-medium text-indigo-600 dark:text-indigo-300 shadow-sm"
+                  whileHover={{ 
+                    y: -3,
+                    backgroundColor: "#3B82F6",
+                    color: "white"
+                  }}
+                  className="px-3 py-1.5 bg-gray-100 rounded-full text-sm font-medium text-gray-700 shadow-sm transition-colors cursor-default"
                 >
                   {tech}
                 </motion.span>

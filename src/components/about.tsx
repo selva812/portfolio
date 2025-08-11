@@ -1,153 +1,255 @@
-import { useState } from 'react';
-import {
-  FaGithub,
-  FaEnvelope,
-  FaPhone,
-  FaLinkedin,
-  FaDownload,
-  FaMapMarkerAlt,
-  FaGlobe,
-  FaTimes,
-  FaCalendarAlt,
-  FaLanguage,
-  FaHeart,
-  FaUser
-} from 'react-icons/fa';
-import { motion, AnimatePresence } from 'framer-motion';
+"use client";
 
-const AboutSidebar = () => {
-  const [isMobileOpen, setIsMobileOpen] = useState(false);
+import React, { JSX, useEffect, useRef } from "react";
+import { motion, useAnimation, useInView } from "framer-motion";
 
-  const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+const containerVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      staggerChildren: 0.12,
+      when: "beforeChildren",
+      duration: 0.6,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 12 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" } },
+  hover: { scale: 1.03, transition: { duration: 0.18 } },
+};
+
+const buttonVariants = {
+  hover: { scale: 1.03, boxShadow: "0px 8px 24px rgba(13,82,214,0.16)" },
+};
+
+export default function AboutSection(): JSX.Element {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const controls = useAnimation();
+  const inView = useInView(sectionRef, { once: true, margin: "-120px" });
+
+  useEffect(() => {
+    if (inView) controls.start("visible");
+  }, [controls, inView]);
+
+  // Download resume from public/ folder
+  const handleDownloadResume = () => {
+    // create an anchor and trigger download
+    const link = document.createElement("a");
+    link.href = "/resume.pdf"; // put resume.pdf inside public/
+    link.download = "Selva_S_Resume.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
-    <>
-      {/* Desktop Sidebar */}
-      <motion.div
-        className="hidden lg:block sticky pt-10 top-14 w-full bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-indigo-900 shadow-xl dark:shadow-gray-800/50 z-10 h-screen overflow-y-auto backdrop-blur-sm"
-        initial={{ x: -320 }}
-        animate={{ x: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="w-full p-4 overflow-y-auto">
-          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 pb-2 border-b-2 border-indigo-500 dark:border-indigo-400">
-            About Me
-          </h3>
+    <motion.section
+      ref={sectionRef}
+      initial="hidden"
+      animate={controls}
+      variants={containerVariants}
+      className="w-full py-12 md:py-16 px-4 md:px-8 lg:px-16 bg-white text-gray-900"
+    >
+      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        {/* LEFT - Bio / Personal Info */}
+        <motion.div variants={itemVariants} className="space-y-4">
+          <h2 className="text-3xl md:text-4xl font-bold">
+            About <span className="text-[#0d52d6]">Me</span>
+          </h2>
 
-          <p className="mb-6 text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
-            I'm a Full Stack Developer with around a year of hands-on experience building web and mobile apps. I have
-            worked on projects like hotel booking systems, farm management apps with RFID and Bluetooth integration,
-            and real-time notifications using Firebase. I'm comfortable working across the stack using tools like
-            Next.js, React Native, Node.js, and MySQL.
+          <p className="text-gray-700 text-base md:text-lg leading-relaxed">
+            I'm a passionate Full-Stack Developer building reliable, scalable web and mobile apps.
+            I focus on clean code, performance and real-world results — using React, Next.js, Node.js and modern toolchains.
           </p>
 
-          <div className="grid grid-cols-1 gap-3">
-            {[
-              { value: 'selva8121999@gmail.com', icon: <FaEnvelope size={18} /> },
-              { value: '+91 9943882575', icon: <FaPhone size={18} /> },
-              { value: '08 Dec 1999', icon: <FaCalendarAlt size={18} /> },
-              { value: 'Tamil, English', icon: <FaLanguage size={18} /> },
-              { value: 'Madurai, India', icon: <FaMapMarkerAlt size={18} /> },
-              { value: 'Cricket, Music', icon: <FaHeart size={18} /> },
-            ].map((itemData, index) => (
-              <motion.div
-                key={index}
-                variants={item}
-                className="flex items-start p-2 rounded-xl bg-gradient-to-r from-white to-blue-50 dark:bg-gradient-to-r dark:from-gray-700 dark:to-gray-600 hover:from-blue-100 hover:to-purple-100 dark:hover:from-gray-600 dark:hover:to-indigo-700 transition-all duration-300 shadow-md hover:shadow-lg border border-blue-100 dark:border-gray-600"
-                whileHover={{ y: -2 }}
-              >
-                <div className="bg-indigo-600 text-white p-2 rounded-lg mr-3">{itemData.icon}</div>
-                <p className="text-gray-900 dark:text-white font-medium text-sm">{itemData.value}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Mobile Floating Trigger Button - Animated */}
-      <motion.div
-        className="lg:hidden fixed right-4 top-1/2 -translate-y-1/2 z-20"
-        animate={{ y: [0, -8, 0] }}
-        transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-      >
-        <motion.button
-          whileTap={{ scale: 0.9 }}
-          onClick={() => setIsMobileOpen(true)}
-          className="w-16 h-16 rounded-full bg-indigo-600 text-white shadow-lg flex items-center justify-center hover:bg-indigo-700 transition-colors"
-        >
-          <FaUser size={24} />
-        </motion.button>
-      </motion.div>
-
-      {/* Mobile Modal */}
-      <AnimatePresence>
-        {isMobileOpen && (
-          <motion.div
-            className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-30 flex justify-center items-center p-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+          <motion.ul
+            variants={itemVariants}
+            className="space-y-2 text-sm md:text-base text-gray-700"
           >
-            <motion.div
-              className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl w-full max-w-md max-h-[90vh] overflow-y-auto relative"
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 50, opacity: 0 }}
-              transition={{ type: 'spring', damping: 25 }}
+            <motion.li
+              whileHover={{ x: 6 }}
+              className="flex items-start gap-3"
             >
-              <button
-                onClick={() => setIsMobileOpen(false)}
-                className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
-              >
-                <FaTimes size={24} />
-              </button>
+              <span className="text-[#0d52d6] font-mono">•</span>
+              <span>Full-stack web & mobile solutions with Next.js & React Native</span>
+            </motion.li>
 
-              <div className="p-6">
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 pb-2 border-b-2 border-indigo-500 dark:border-indigo-400">
-                  About Me
-                </h3>
+            <motion.li whileHover={{ x: 6 }} className="flex items-start gap-3">
+              <span className="text-[#0d52d6] font-mono">•</span>
+              <span>Real-time features (Push, Firebase) & background sync</span>
+            </motion.li>
 
-                <p className="mb-8 text-gray-700 dark:text-gray-300 text-base leading-relaxed">
-                  Full Stack Developer with 7+ months of experience delivering client-driven solutions, including
-                  e-commerce platforms and custom APIs. Skilled in rapid prototyping and client communication. Looking
-                  to join a dynamic team to tackle large-scale projects with measurable impact.
-                </p>
+            <motion.li whileHover={{ x: 6 }} className="flex items-start gap-3">
+              <span className="text-[#0d52d6] font-mono">•</span>
+              <span>Clean architecture, APIs (Node.js) & MySQL data handling</span>
+            </motion.li>
 
-                <div className="grid grid-cols-1 gap-4">
-                  {[
-                    { label: 'Email', value: 'selva8121999@gmail.com', icon: <FaEnvelope size={20} /> },
-                    { label: 'Phone', value: '+91 9943882575', icon: <FaPhone size={20} /> },
-                    { label: 'Birth Date', value: '08 Dec 1999', icon: <FaCalendarAlt size={20} /> },
-                    { label: 'Languages', value: 'Tamil, English', icon: <FaLanguage size={20} /> },
-                    { label: 'Location', value: 'Madurai, India', icon: <FaMapMarkerAlt size={20} /> },
-                    { label: 'Interests', value: 'Cricket, Music', icon: <FaHeart size={20} /> },
-                  ].map((itemData, index) => (
-                    <motion.div
-                      key={index}
-                      variants={item}
-                      className="flex items-start p-4 rounded-xl bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-300"
-                      whileHover={{ y: -3 }}
-                    >
-                      <div className="bg-indigo-600 text-white p-2 rounded-lg mr-4">{itemData.icon}</div>
-                      <div>
-                        <h4 className="font-semibold text-sm text-gray-500 dark:text-gray-400 mb-1">
-                          {itemData.label}
-                        </h4>
-                        <p className="text-gray-900 dark:text-white font-medium">{itemData.value}</p>
-                      </div>
-                    </motion.div>
-                  ))}
+            <motion.li whileHover={{ x: 6 }} className="flex items-start gap-3">
+              <span className="text-[#0d52d6] font-mono">•</span>
+              <span>UI & UX from Figma to responsive production-ready pages</span>
+            </motion.li>
+          </motion.ul>
+
+          <motion.div className="flex gap-4 mt-4" variants={itemVariants}>
+            <motion.button
+              variants={buttonVariants}
+              whileHover="hover"
+              onClick={() => window.location.assign("/projects")}
+              className="px-5 py-2 inline-flex items-center gap-2 rounded-full bg-[#0d52d6] text-white text-sm md:text-base font-medium border-0"
+            >
+              View Projects
+            </motion.button>
+
+            <motion.button
+              variants={buttonVariants}
+              whileHover="hover"
+              onClick={handleDownloadResume}
+              className="px-4 py-2 inline-flex items-center gap-2 rounded-full border border-gray-200 text-sm md:text-base bg-white text-gray-800"
+            >
+              Download Resume
+            </motion.button>
+          </motion.div>
+        </motion.div>
+
+        {/* RIGHT - Compact Personal Info Card + Circular Image */}
+        <motion.div
+          variants={itemVariants}
+          className="flex flex-col items-center md:items-end gap-6"
+        >
+          {/* compact personal info card with hover effects */}
+          <motion.div
+            variants={itemVariants}
+            whileHover="hover"
+            className="w-full max-w-sm p-4 rounded-xl border border-gray-100 shadow-sm"
+            style={{ background: "white" }}
+          >
+            <div className="flex items-center gap-3">
+              <div className="flex-shrink-0">
+                <div className="w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden border-2 border-[#0d52d6]">
+                  <img
+                    src="/avatar.jpg" // put your image in public/avatar.jpg or change path
+                    alt="Selva"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
-  );
-};
 
-export default AboutSidebar;
+              <div className="flex-1">
+                <h3 className="text-lg font-semibold">Selva S</h3>
+                <p className="text-sm text-gray-600">Full Stack Developer</p>
+              </div>
+            </div>
+
+            {/* list */}
+            <div className="mt-4 grid grid-cols-1 gap-2">
+              <div className="flex items-center justify-between text-sm text-gray-700">
+                <span className="text-gray-500">Email</span>
+                <span className="font-medium">selva8121999@gmail.com</span>
+              </div>
+              <div className="flex items-center justify-between text-sm text-gray-700">
+                <span className="text-gray-500">Phone</span>
+                <span className="font-medium">+91 9943882575</span>
+              </div>
+              <div className="flex items-center justify-between text-sm text-gray-700">
+                <span className="text-gray-500">Location</span>
+                <span className="font-medium">Madurai, India</span>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Interactive circular image (mouse based scale) */}
+          <motion.div
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            whileHover={{ scale: 1.02 }}
+            className="relative"
+          >
+            {/* outer animated circle (decorative) */}
+            <motion.div
+              className="absolute -inset-4 rounded-full blur-2xl opacity-30"
+              style={{ background: "radial-gradient(circle at 30% 30%, rgba(13,82,214,0.15), transparent 30%), radial-gradient(circle at 70% 70%, rgba(179,157,219,0.08), transparent 20%)" }}
+              animate={{
+                rotate: [0, 8, 0],
+              }}
+              transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+            />
+
+            {/* interactive circular wrapper */}
+            <InteractiveCircularImage />
+          </motion.div>
+        </motion.div>
+      </div>
+    </motion.section>
+  );
+}
+
+/**
+ * InteractiveCircularImage
+ * - Uses pointer position to produce a subtle scale/translate of the image container.
+ * - Very lightweight: uses requestAnimationFrame + CSS transforms (GPU-accelerated).
+ */
+function InteractiveCircularImage(): JSX.Element {
+  const circleRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const el = circleRef.current;
+    if (!el) return;
+
+    let frame = 0;
+    let mouseX = 0;
+    let mouseY = 0;
+    let lastX = 0;
+    let lastY = 0;
+
+    const onMove = (e: PointerEvent) => {
+      // Normalize to center of viewport so effect feels natural
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 2;
+      mouseX = (e.clientX - cx) / cx; // -1 .. 1
+      mouseY = (e.clientY - cy) / cy; // -1 .. 1
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+
+    const update = () => {
+      // Linear interpolate for smoothness
+      lastX += (mouseX - lastX) * 0.08;
+      lastY += (mouseY - lastY) * 0.08;
+
+      // map to small transform values
+      const translateX = lastX * 10; // px
+      const translateY = lastY * 8; // px
+      const scale = 1 + Math.min(0.06, Math.abs(lastX) * 0.06 + Math.abs(lastY) * 0.03);
+
+      if (el) {
+        el.style.transform = `translate3d(${translateX}px, ${translateY}px, 0) scale(${scale})`;
+      }
+
+      frame = 0;
+    };
+
+    window.addEventListener("pointermove", onMove, { passive: true });
+    return () => {
+      window.removeEventListener("pointermove", onMove as EventListener);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  return (
+    <div
+      ref={circleRef}
+      className="w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-white shadow-xl"
+      style={{ background: "#f6f8fb" }}
+    >
+      <img
+        src="/avatar.jpg" // place your image in public/avatar.jpg
+        alt="Selva"
+        className="w-full h-full object-cover"
+      />
+    </div>
+  );
+}
