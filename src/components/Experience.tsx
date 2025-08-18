@@ -99,9 +99,9 @@ const Experience = () => {
               "Collaborated on cross-platform React Native mobile apps, implementing features like push notifications, user authentication, and API integration with Firebase.",
               "Worked in Agile teams to deliver features end-to-end, from UI/UX prototyping (Figma) to backend API development (Node.js/Express) and database optimization.",
               "Conducted code reviews, resolved bugs, and improved application maintainability by refactoring legacy components into reusable React modules."
-            ].map((point, index) => (
+            ].map((point) => (
               <motion.li 
-                key={index}
+                key={point}
                 variants={item}
                 className="text-gray-700 leading-relaxed hover:text-gray-900 transition-colors"
                 whileHover={{ x: 5 }}
@@ -135,9 +135,9 @@ const Experience = () => {
                 'Prisma',
                 'Framer Motion',
                 'Rest API'
-              ].map((tech, index) => (
+              ].map((tech) => (
                 <motion.span
-                  key={index}
+                  key={tech}
                   variants={item}
                   whileHover={{ 
                     y: -3,

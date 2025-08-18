@@ -116,7 +116,7 @@ const EducationSection = () => {
         <div className="relative pl-8 sm:pl-12 border-l-2 border-blue-500">
           {educationHistory.map((education, index) => (
             <motion.div
-              key={index}
+              key={education.degree}
               variants={item}
               className="relative mb-10 group"
               whileHover={{ 

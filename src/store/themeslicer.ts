@@ -7,13 +7,13 @@ interface ThemeState {
 }
 
 const getInitialState = (): ThemeMode => {
-    if (typeof window !== 'undefined') {
-        const storedTheme = localStorage.getItem('theme') as ThemeMode | null;
-        if (storedTheme) return storedTheme;
+    // if (typeof window !== 'undefined') {
+    //     const storedTheme = localStorage.getItem('theme') as ThemeMode | null;
+    //     if (storedTheme) return storedTheme;
 
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        return prefersDark ? "dark" : "light";
-    }
+    //     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    //     return prefersDark ? "dark" : "light";
+    // }
     return 'light';
 }
 

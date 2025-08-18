@@ -102,7 +102,7 @@ export default function HeaderComponent() {
           <nav className="hidden md:flex gap-6">
             {navlist.map((item, index) => (
               <div
-                key={index}
+                key={`nav-${item.id}`}
                 onClick={() => handleNavClick(item.id)}
                 className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white font-medium transition-colors duration-300 relative group"
               >
@@ -126,7 +126,7 @@ export default function HeaderComponent() {
               <div className="container mx-auto px-4 py-4 flex flex-col">
                 {navlist.map((item, index) => (
                   <a
-                    key={index}
+                    key={`mobnav-${item.id}`}
                     href={`#${item.id}`}
                     onClick={() => {
                       setIsMenuOpen(false);

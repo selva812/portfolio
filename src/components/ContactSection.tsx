@@ -133,7 +133,7 @@ const ContactSection = () => {
               }
             ].map((contact, index) => (
               <motion.a
-                key={index}
+                key={contact.title}
                 href={contact.href}
                 target="_blank"
                 rel="noopener noreferrer"
