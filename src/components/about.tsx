@@ -1,481 +1,412 @@
 // "use client";
+// import { motion } from "framer-motion";
 
-// import React, { JSX, useEffect, useRef } from "react";
-// import { motion, useAnimation, useInView } from "framer-motion";
-
-// const containerVariants = {
-//   hidden: { opacity: 0, y: 20 },
-//   visible: {
-//     opacity: 1,
-//     y: 0,
-//     transition: {
-//       staggerChildren: 0.12,
-//       when: "beforeChildren",
-//       duration: 0.6,
+// export default function AboutSection() {
+//  const containerVariants = {
+//     hidden: { opacity: 0, y: 40 },
+//     visible: {
+//       opacity: 1,
+//       y: 0,
+//       transition: { duration: 0.6, ease: "easeOut", staggerChildren: 0.2 },
 //     },
-//   },
-// };
-
-// const itemVariants = {
-//   hidden: { opacity: 0, y: 12 },
-//   visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" } },
-//   hover: { scale: 1.03, transition: { duration: 0.18 } },
-// };
-
-// const buttonVariants = {
-//   hover: { scale: 1.03, boxShadow: "0px 8px 24px rgba(13,82,214,0.16)" },
-// };
-
-// export default function AboutSection(): JSX.Element {
-//   const sectionRef = useRef<HTMLElement | null>(null);
-//   const controls = useAnimation();
-//   const inView = useInView(sectionRef, { once: true, margin: "-120px" });
-
-//   useEffect(() => {
-//     if (inView) controls.start("visible");
-//   }, [controls, inView]);
-
-//   // Download resume from public/ folder
-//   const handleDownloadResume = () => {
-//     // create an anchor and trigger download
-//     const link = document.createElement("a");
-//     link.href = "/resume.pdf"; // put resume.pdf inside public/
-//     link.download = "Selva_S_Resume.pdf";
-//     document.body.appendChild(link);
-//     link.click();
-//     document.body.removeChild(link);
 //   };
 
+//   const itemVariants = {
+//     hidden: { opacity: 0, y: 20 },
+//     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+//   };
+
+//   const stats = [
+//     { number: "1+", label: "Years Experience", icon: "🚀" },
+//     { number: "7+", label: "Projects Completed", icon: "💼" },
+//     { number: "10+", label: "Technologies", icon: "⚡" },
+//     { number: "100%", label: "Client Satisfaction", icon: "⭐" }
+//   ];
+
 //   return (
-//     <motion.section
-//       ref={sectionRef}
-//       initial="hidden"
-//       animate={controls}
-//       variants={containerVariants}
-//       className="w-full py-12 md:py-16 px-4 md:px-8 lg:px-16 bg-white text-gray-900"
-//     >
-//       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-//         {/* LEFT - Bio / Personal Info */}
-//         <motion.div variants={itemVariants} className="space-y-4">
-//           <h2 className="text-3xl md:text-4xl font-bold">
-//             About <span className="text-[#0d52d6]">Me</span>
+//     <section className="w-full bg-gradient-to-br from-white via-blue-50/30 to-white pt-20 pb-10 px-6 lg:px-20">
+//       <motion.div
+//         initial="hidden"
+//         whileInView="visible"
+//         viewport={{ once: true, margin: "-100px" }}
+//         variants={containerVariants}
+//         className="max-w-6xl mx-auto"
+//       >
+//         {/* Header */}
+//         <motion.div variants={itemVariants} className="text-center mb-16">
+//           <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-gray-900">
+//             Get To Know{" "}
+//             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+//               Me Better
+//             </span>
 //           </h2>
-
-//           <p className="text-gray-700 text-base md:text-lg leading-relaxed">
-//             I'm a passionate Full-Stack Developer building reliable, scalable web and mobile apps.
-//             I focus on clean code, performance and real-world results — using React, Next.js, Node.js and modern toolchains.
-//           </p>
-
-//           <motion.ul
-//             variants={itemVariants}
-//             className="space-y-2 text-sm md:text-base text-gray-700"
-//           >
-//             <motion.li
-//               whileHover={{ x: 6 }}
-//               className="flex items-start gap-3"
-//             >
-//               <span className="text-[#0d52d6] font-mono">•</span>
-//               <span>Full-stack web & mobile solutions with Next.js & React Native</span>
-//             </motion.li>
-
-//             <motion.li whileHover={{ x: 6 }} className="flex items-start gap-3">
-//               <span className="text-[#0d52d6] font-mono">•</span>
-//               <span>Real-time features (Push, Firebase) & background sync</span>
-//             </motion.li>
-
-//             <motion.li whileHover={{ x: 6 }} className="flex items-start gap-3">
-//               <span className="text-[#0d52d6] font-mono">•</span>
-//               <span>Clean architecture, APIs (Node.js) & MySQL data handling</span>
-//             </motion.li>
-
-//             <motion.li whileHover={{ x: 6 }} className="flex items-start gap-3">
-//               <span className="text-[#0d52d6] font-mono">•</span>
-//               <span>UI & UX from Figma to responsive production-ready pages</span>
-//             </motion.li>
-//           </motion.ul>
-
-//           <motion.div className="flex gap-4 mt-4" variants={itemVariants}>
-//             <motion.button
-//               variants={buttonVariants}
-//               whileHover="hover"
-//               onClick={() => window.location.assign("/projects")}
-//               className="px-5 py-2 inline-flex items-center gap-2 rounded-full bg-[#0d52d6] text-white text-sm md:text-base font-medium border-0"
-//             >
-//               View Projects
-//             </motion.button>
-
-//             <motion.button
-//               variants={buttonVariants}
-//               whileHover="hover"
-//               onClick={handleDownloadResume}
-//               className="px-4 py-2 inline-flex items-center gap-2 rounded-full border border-gray-200 text-sm md:text-base bg-white text-gray-800"
-//             >
-//               Download Resume
-//             </motion.button>
-//           </motion.div>
+//           <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
 //         </motion.div>
 
-//         {/* RIGHT - Compact Personal Info Card + Circular Image */}
-//         <motion.div
-//           variants={itemVariants}
-//           className="flex flex-col items-center md:items-end gap-6"
-//         >
-//           {/* compact personal info card with hover effects */}
-//           <motion.div
-//             variants={itemVariants}
-//             whileHover="hover"
-//             className="w-full max-w-sm p-4 rounded-xl border border-gray-100 shadow-sm"
-//             style={{ background: "white" }}
-//           >
-//             <div className="flex items-center gap-3">
-//               <div className="flex-shrink-0">
-//                 <div className="w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden border-2 border-[#0d52d6]">
-//                   <img
-//                     src="/avatar.jpg" // put your image in public/avatar.jpg or change path
-//                     alt="Selva"
-//                     className="w-full h-full object-cover"
-//                   />
+//         <div className="grid lg:grid-cols-2 gap-16 items-center">
+//           {/* Left Content */}
+//           <motion.div variants={itemVariants} className="space-y-8">
+//             <div className="space-y-6">
+//               <div className="flex items-start gap-4">
+//                 <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+//                   <span className="text-blue-600 text-sm">🎯</span>
+//                 </div>
+//                 <div>
+//                   <h3 className="text-xl font-semibold text-gray-800 mb-2">My Mission</h3>
+//                   <p className="text-gray-600 leading-relaxed">
+//                     Transforming ideas into digital reality through clean code, innovative solutions, 
+//                     and user-centered design. I believe technology should solve real problems and 
+//                     create meaningful experiences.
+//                   </p>
 //                 </div>
 //               </div>
 
-//               <div className="flex-1">
-//                 <h3 className="text-lg font-semibold">Selva S</h3>
-//                 <p className="text-sm text-gray-600">Full Stack Developer</p>
+//               <div className="flex items-start gap-4">
+//                 <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+//                   <span className="text-green-600 text-sm">💡</span>
+//                 </div>
+//                 <div>
+//                   <h3 className="text-xl font-semibold text-gray-800 mb-2">What Drives Me</h3>
+//                   <p className="text-gray-600 leading-relaxed">
+//                     The thrill of learning new technologies and solving complex challenges. 
+//                     From React Native mobile apps to full-stack web applications, I'm constantly 
+//                     pushing boundaries and expanding my skill set.
+//                   </p>
+//                 </div>
+//               </div>
+
+//               <div className="flex items-start gap-4">
+//                 <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+//                   <span className="text-purple-600 text-sm">🔍</span>
+//                 </div>
+//                 <div>
+//                   <h3 className="text-xl font-semibold text-gray-800 mb-2">Beyond Coding</h3>
+//                   <p className="text-gray-600 leading-relaxed">
+//                     When I'm not building applications, you'll find me solving LeetCode problems, 
+//                     exploring the latest tech trends, or contributing to open-source projects. 
+//                     I believe continuous learning is the key to staying relevant in tech.
+//                   </p>
+//                 </div>
 //               </div>
 //             </div>
 
-//             {/* list */}
-//             <div className="mt-4 grid grid-cols-1 gap-2">
-//               <div className="flex items-center justify-between text-sm text-gray-700">
-//                 <span className="text-gray-500">Email</span>
-//                 <span className="font-medium">selva8121999@gmail.com</span>
-//               </div>
-//               <div className="flex items-center justify-between text-sm text-gray-700">
-//                 <span className="text-gray-500">Phone</span>
-//                 <span className="font-medium">+91 9943882575</span>
-//               </div>
-//               <div className="flex items-center justify-between text-sm text-gray-700">
-//                 <span className="text-gray-500">Location</span>
-//                 <span className="font-medium">Madurai, India</span>
-//               </div>
-//             </div>
+//             {/* CTA */}
+//             <motion.div 
+//               className="flex gap-4 pt-6"
+//               variants={itemVariants}
+//             >
+//               <motion.button
+//                 whileHover={{ scale: 1.05 }}
+//                 whileTap={{ scale: 0.95 }}
+//                 className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-medium shadow-lg hover:shadow-xl transition-all"
+//               >
+//                 Download Resume
+//               </motion.button>
+//               <motion.button
+//                 whileHover={{ scale: 1.05 }}
+//                 whileTap={{ scale: 0.95 }}
+//                 className="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-full font-medium hover:border-blue-500 hover:text-blue-600 transition-all"
+//               >
+//                 Let's Connect
+//               </motion.button>
+//             </motion.div>
 //           </motion.div>
 
-//           {/* Interactive circular image (mouse based scale) */}
-       
-//         </motion.div>
-//       </div>
-//     </motion.section>
+//           {/* Right Stats */}
+//           <motion.div variants={itemVariants} className="space-y-6">
+//             <div className="grid grid-cols-2 gap-6">
+//               {stats.map((stat, index) => (
+//                 <motion.div
+//                   key={stat.label}
+//                   variants={itemVariants}
+//                   whileHover={{ y: -5, scale: 1.02 }}
+//                   className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 text-center hover:shadow-xl transition-all group"
+//                 >
+//                   <div className="text-3xl mb-2 group-hover:scale-110 transition-transform">
+//                     {stat.icon}
+//                   </div>
+//                   <div className="text-2xl lg:text-3xl font-bold text-blue-600 mb-1">
+//                     {stat.number}
+//                   </div>
+//                   <div className="text-sm text-gray-600">{stat.label}</div>
+//                 </motion.div>
+//               ))}
+//             </div>
+
+//             {/* Skills Preview */}
+//             <motion.div 
+//               variants={itemVariants}
+//               className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100"
+//             >
+//               <h4 className="font-semibold text-gray-800 mb-4">Core Technologies</h4>
+//               <div className="flex flex-wrap gap-2">
+//                 {['React', 'Next.js', 'React Native', 'Node.js', 'TypeScript', 'Mysql'].map((tech) => (
+//                   <span 
+//                     key={tech}
+//                     className="px-3 py-1 bg-blue-50 text-blue-600 text-sm rounded-full border border-blue-100"
+//                   >
+//                     {tech}
+//                   </span>
+//                 ))}
+//               </div>
+//             </motion.div>
+//           </motion.div>
+//         </div>
+//       </motion.div>
+//     </section>
 //   );
-// }
-
-
-// function InteractiveCircularImage(): JSX.Element {
-//   const circleRef = useRef<HTMLDivElement | null>(null);
-
-//   useEffect(() => {
-//     const el = circleRef.current;
-//     if (!el) return;
-
-//     let frame = 0;
-//     let mouseX = 0;
-//     let mouseY = 0;
-//     let lastX = 0;
-//     let lastY = 0;
-
-//     const onMove = (e: PointerEvent) => {
-//       // Normalize to center of viewport so effect feels natural
-//       const cx = window.innerWidth / 2;
-//       const cy = window.innerHeight / 2;
-//       mouseX = (e.clientX - cx) / cx; // -1 .. 1
-//       mouseY = (e.clientY - cy) / cy; // -1 .. 1
-//       if (!frame) frame = requestAnimationFrame(update);
-//     };
-
-//     const update = () => {
-//       // Linear interpolate for smoothness
-//       lastX += (mouseX - lastX) * 0.08;
-//       lastY += (mouseY - lastY) * 0.08;
-
-//       // map to small transform values
-//       const translateX = lastX * 10; // px
-//       const translateY = lastY * 8; // px
-//       const scale = 1 + Math.min(0.06, Math.abs(lastX) * 0.06 + Math.abs(lastY) * 0.03);
-
-//       if (el) {
-//         el.style.transform = `translate3d(${translateX}px, ${translateY}px, 0) scale(${scale})`;
-//       }
-
-//       frame = 0;
-//     };
-
-//     window.addEventListener("pointermove", onMove, { passive: true });
-//     return () => {
-//       window.removeEventListener("pointermove", onMove as EventListener);
-//       if (frame) cancelAnimationFrame(frame);
-//     };
-//   }, []);
-
-//   return (
-//     <div
-//       ref={circleRef}
-//       className="w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-white shadow-xl"
-//       style={{ background: "#f6f8fb" }}
-//     >
-//       <img
-//         src="/avatar.jpg" // place your image in public/avatar.jpg
-//         alt="Selva"
-//         className="w-full h-full object-cover"
-//       />
-//     </div>
-//   );
-// }
+// };
 
 "use client";
-import React, { useEffect, useRef } from "react";
-import { motion, useAnimation, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 
 export default function AboutSection() {
-  const sectionRef = useRef(null);
-  const controls = useAnimation();
-  const inView = useInView(sectionRef, { once: true, margin: "-100px" });
-
-  useEffect(() => {
-    if (inView) {
-      controls.start("visible");
-    }
-  }, [controls, inView]);
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        duration: 0.6,
-      },
+      transition: { duration: 0.8, ease: "easeOut", staggerChildren: 0.3 },
     },
   };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
+  const slideInFromLeft = {
+    hidden: { opacity: 0, x: -100, rotateY: -15 },
+    visible: { 
+      opacity: 1, 
+      x: 0, 
+      rotateY: 0,
+      transition: { duration: 0.8, ease: "easeOut" } 
+    }
+  };
+
+  const slideInFromRight = {
+    hidden: { opacity: 0, x: 100, rotateY: 15 },
+    visible: { 
+      opacity: 1, 
+      x: 0, 
+      rotateY: 0,
+      transition: { duration: 0.8, ease: "easeOut" } 
+    }
+  };
+
+  const fadeInScale = {
+    hidden: { opacity: 0, scale: 0.8, y: 50 },
+    visible: { 
+      opacity: 1, 
+      scale: 1, 
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
+      transition: { duration: 0.6, ease: "easeOut" } 
+    }
   };
 
-  const cardVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
+  const staggerContainer = {
+    hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      scale: 1,
-      transition: { duration: 0.5, ease: "easeOut" },
-    },
-    hover: {
-      scale: 1.05,
-      boxShadow: "0 25px 50px rgba(0, 0, 0, 0.1)",
-      transition: { duration: 0.3 },
-    },
+      transition: { staggerChildren: 0.15 }
+    }
   };
 
-  const handleDownloadResume = () => {
-    const link = document.createElement("a");
-    link.href = "/resume.pdf";
-    link.download = "Selva_S_Resume.pdf";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
-  const expertise = [
-    {
-      icon: "🚀",
-      title: "Performance Focused",
-      description: "Optimized applications with lighthouse scores 95+",
-    },
-    {
-      icon: "🎨",
-      title: "Design Systems",
-      description: "Scalable UI components with consistent branding",
-    },
-    {
-      icon: "⚡",
-      title: "Modern Stack",
-      description: "Latest technologies for robust, future-proof solutions",
-    },
-    {
-      icon: "🔄",
-      title: "Agile Approach",
-      description: "Iterative development with continuous feedback loops",
-    },
+  const stats = [
+    { number: "1+", label: "Years Experience", icon: "🚀" },
+    { number: "7+", label: "Projects Completed", icon: "💼" },
+    { number: "10+", label: "Technologies", icon: "⚡" },
+    { number: "100%", label: "Client Satisfaction", icon: "⭐" }
   ];
 
   return (
-    <motion.section
-      ref={sectionRef}
-      initial="hidden"
-      animate={controls}
-      variants={containerVariants}
-      className="relative w-full py-20 px-6 lg:px-16 bg-gradient-to-b from-white to-gray-50"
-    >
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }} />
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto">
-        {/* Section Header */}
-        <motion.div variants={itemVariants} className="text-center mb-16">
+    <section className="w-full bg-gradient-to-br from-white via-blue-50/30 to-white pt-16 sm:pt-20 pb-8 sm:pb-10 px-4 sm:px-6 lg:px-20">
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-50px" }}
+        variants={containerVariants}
+        className="max-w-6xl mx-auto"
+      >
+        {/* Header */}
+        <motion.div 
+          variants={fadeInScale} 
+          className="text-center mb-12 sm:mb-16"
+        >
           <motion.h2 
-            className="text-4xl lg:text-5xl font-bold mb-6"
-            whileHover={{ scale: 1.02 }}
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-gray-900"
+            animate={{
+              backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+            }}
+            transition={{ duration: 5, repeat: Infinity }}
           >
-            About{" "}
+            Get To Know{" "}
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Me
+              Me Better
             </span>
           </motion.h2>
-          <motion.div
+          <motion.div 
+            className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"
             initial={{ width: 0 }}
-            animate={inView ? { width: "80px" } : { width: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full"
+            whileInView={{ width: 96 }}
+            transition={{ duration: 1, delay: 0.5 }}
           />
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-          {/* Left Column - Story & Philosophy */}
-          <motion.div variants={itemVariants} className="space-y-8">
-            <motion.div
-              variants={cardVariants}
-              whileHover="hover"
-              className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100"
+        <div className="grid lg:grid-cols-2 gap-12 sm:gap-16 items-center">
+          {/* Left Content */}
+          <motion.div variants={slideInFromLeft} className="space-y-6 sm:space-y-8">
+            <motion.div 
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="space-y-4 sm:space-y-6"
             >
-              <h3 className="text-2xl font-bold mb-6 text-gray-800">My Story</h3>
-              <div className="space-y-4 text-gray-600 leading-relaxed">
-                <p>
-                  With over 3 years of experience in full-stack development, I've evolved from 
-                  a curious problem-solver into a seasoned digital architect. My journey spans 
-                  from crafting pixel-perfect interfaces to building robust backend systems.
-                </p>
-                <p>
-                  I believe in writing code that not only works but tells a story—clean, 
-                  maintainable, and scalable solutions that stand the test of time and growth.
-                </p>
-              </div>
-            </motion.div>
-
-            {/* Philosophy Card */}
-            <motion.div
-              variants={cardVariants}
-              whileHover="hover"
-              className="bg-gradient-to-br from-blue-50 to-purple-50 p-8 rounded-2xl border border-blue-100"
-            >
-              <h3 className="text-2xl font-bold mb-4 text-gray-800">
-                My Philosophy
-              </h3>
-              <blockquote className="text-lg italic text-gray-700 border-l-4 border-blue-500 pl-6">
-                "Great software is built at the intersection of technical excellence 
-                and human empathy. Every line of code should serve a purpose, 
-                every interaction should feel natural."
-              </blockquote>
-            </motion.div>
-          </motion.div>
-
-          {/* Right Column - Expertise & Contact */}
-          <motion.div variants={itemVariants} className="space-y-8">
-            {/* Expertise Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {expertise.map((item, index) => (
+              {[
+                {
+                  icon: "🎯",
+                  title: "My Mission",
+                  description: "Transforming ideas into digital reality through clean code, innovative solutions, and user-centered design. I believe technology should solve real problems and create meaningful experiences.",
+                  color: "blue"
+                },
+                {
+                  icon: "💡",
+                  title: "What Drives Me",
+                  description: "The thrill of learning new technologies and solving complex challenges. From React Native mobile apps to full-stack web applications, I'm constantly pushing boundaries and expanding my skill set.",
+                  color: "green"
+                },
+                {
+                  icon: "🔍",
+                  title: "Beyond Coding",
+                  description: "When I'm not building applications, you'll find me solving LeetCode problems, exploring the latest tech trends, or contributing to open-source projects. I believe continuous learning is the key to staying relevant in tech.",
+                  color: "purple"
+                }
+              ].map((item, index) => (
                 <motion.div
                   key={item.title}
-                  variants={cardVariants}
-                  whileHover="hover"
-                  className="bg-white p-6 rounded-xl shadow-md border border-gray-100 text-center"
+                  variants={fadeInScale}
+                  className="flex items-start gap-3 sm:gap-4"
+                  whileHover={{ x: 10 }}
+                  transition={{ duration: 0.3 }}
                 >
-                  <div className="text-3xl mb-3">{item.icon}</div>
-                  <h4 className="font-semibold text-gray-800 mb-2">{item.title}</h4>
-                  <p className="text-sm text-gray-600">{item.description}</p>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Contact Card */}
-            <motion.div
-              variants={cardVariants}
-              whileHover="hover"
-              className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100"
-            >
-              <h3 className="text-xl font-bold mb-6 text-gray-800">Get In Touch</h3>
-              
-              <div className="space-y-4">
-                {[
-                  { label: "Email", value: "selva8121999@gmail.com", type: "email" },
-                  { label: "Phone", value: "+91 9943882575", type: "phone" },
-                  { label: "Location", value: "Madurai, India", type: "location" },
-                ].map((contact, index) => (
-                  <motion.div
-                    key={contact.label}
-                    whileHover={{ x: 5 }}
-                    className="flex justify-between items-center py-2 px-4 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer"
-                    onClick={() => {
-                      if (contact.type === "email") {
-                        window.open(`mailto:${contact.value}`);
-                      } else if (contact.type === "phone") {
-                        window.open(`tel:${contact.value}`);
-                      }
+                  <motion.div 
+                    className={`w-8 h-8 bg-${item.color}-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1`}
+                    whileHover={{ scale: 1.2, rotate: 10 }}
+                    animate={{
+                      y: [0, -2, 0],
+                    }}
+                    transition={{
+                      y: { duration: 2, repeat: Infinity, delay: index * 0.5 }
                     }}
                   >
-                    <span className="text-gray-500 text-sm">{contact.label}</span>
-                    <span className="font-medium text-gray-800">{contact.value}</span>
+                    <span className={`text-${item.color}-600 text-sm`}>{item.icon}</span>
                   </motion.div>
-                ))}
-              </div>
+                  <div>
+                    <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2">{item.title}</h3>
+                    <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
 
+            {/* CTA */}
+            <motion.div 
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4 sm:pt-6"
+              variants={fadeInScale}
+            >
               <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={handleDownloadResume}
-                className="w-full mt-6 px-6 py-3 bg-gradient-to-r from-gray-800 to-gray-900 text-white rounded-xl font-medium hover:shadow-lg transition-all duration-300"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-medium shadow-lg hover:shadow-xl transition-all text-sm sm:text-base"
               >
-                📄 Download Resume
+                Download Resume
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-4 sm:px-6 py-2 sm:py-3 border-2 border-gray-300 text-gray-700 rounded-full font-medium hover:border-blue-500 hover:text-blue-600 transition-all text-sm sm:text-base"
+              >
+                Let's Connect
               </motion.button>
             </motion.div>
           </motion.div>
-        </div>
 
-        {/* Bottom CTA */}
-        <motion.div
-          variants={itemVariants}
-          className="text-center mt-16 pt-12 border-t border-gray-200"
-        >
-          <motion.h3
-            className="text-2xl font-bold mb-4 text-gray-800"
-            whileHover={{ scale: 1.02 }}
-          >
-            Ready to bring your ideas to life?
-          </motion.h3>
-          <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-            Whether you're a startup looking to build your MVP or an established company 
-            seeking to modernize your tech stack, I'm here to help you succeed.
-          </p>
-          <motion.button
-            whileHover={{ 
-              scale: 1.05,
-              boxShadow: "0 20px 40px rgba(59, 130, 246, 0.2)"
-            }}
-            whileTap={{ scale: 0.95 }}
-            className="px-10 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-semibold text-lg shadow-lg"
-            onClick={() => window.open('mailto:selva8121999@gmail.com')}
-          >
-            Start a Project
-          </motion.button>
-        </motion.div>
-      </div>
-    </motion.section>
+          {/* Right Stats */}
+          <motion.div variants={slideInFromRight} className="space-y-4 sm:space-y-6">
+            <motion.div 
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="grid grid-cols-2 gap-3 sm:gap-6"
+            >
+              {stats.map((stat, index) => (
+                <motion.div
+                  key={stat.label}
+                  variants={fadeInScale}
+                  whileHover={{ y: -8, scale: 1.03, rotateY: 5 }}
+                  className="bg-white p-4 sm:p-6 rounded-2xl shadow-lg border border-gray-100 text-center hover:shadow-xl transition-all group cursor-pointer"
+                  animate={{
+                    y: [0, -3, 0],
+                  }}
+                  transition={{
+                    y: { duration: 3, repeat: Infinity, delay: index * 0.7 }
+                  }}
+                >
+                  <motion.div 
+                    className="text-2xl sm:text-3xl mb-2 group-hover:scale-110 transition-transform"
+                    animate={{
+                      rotate: [0, 5, -5, 0],
+                    }}
+                    transition={{
+                      duration: 4,
+                      repeat: Infinity,
+                      delay: index * 0.5,
+                    }}
+                  >
+                    {stat.icon}
+                  </motion.div>
+                  <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-blue-600 mb-1">
+                    {stat.number}
+                  </div>
+                  <div className="text-xs sm:text-sm text-gray-600">{stat.label}</div>
+                </motion.div>
+              ))}
+            </motion.div>
+
+            {/* Skills Preview */}
+            <motion.div 
+              variants={fadeInScale}
+              className="bg-white p-4 sm:p-6 rounded-2xl shadow-lg border border-gray-100"
+              whileHover={{ scale: 1.02 }}
+            >
+              <h4 className="font-semibold text-gray-800 mb-3 sm:mb-4 text-sm sm:text-base">Core Technologies</h4>
+              <motion.div 
+                className="flex flex-wrap gap-1.5 sm:gap-2"
+                variants={staggerContainer}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+              >
+                {['React', 'Next.js', 'React Native', 'Node.js', 'TypeScript', 'Mysql'].map((tech, index) => (
+                  <motion.span 
+                    key={tech}
+                    variants={fadeInScale}
+                    className="px-2 sm:px-3 py-1 bg-blue-50 text-blue-600 text-xs sm:text-sm rounded-full border border-blue-100 hover:bg-blue-100 transition-colors cursor-pointer"
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    animate={{
+                      y: [0, -1, 0],
+                    }}
+                    transition={{
+                      y: { duration: 2, repeat: Infinity, delay: index * 0.2 }
+                    }}
+                  >
+                    {tech}
+                  </motion.span>
+                ))}
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </motion.div>
+    </section>
   );
 }

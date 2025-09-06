@@ -86,7 +86,7 @@ const EducationSection = () => {
       initial="hidden"
       animate={controls}
       variants={container}
-      className="max-w-4xl mx-auto px-4 sm:px-6 py-12 bg-white"
+      className="max-w-4xl mx-auto px-4 sm:px-6 py-6 bg-white"
     >
       <motion.h2 
         className="text-3xl font-bold mb-12 text-center text-gray-900 relative"

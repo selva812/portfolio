@@ -123,8 +123,8 @@ const ContactSection = () => {
               {
                 icon: <FaLinkedin className="text-blue-600" size={20} />,
                 title: "LinkedIn",
-                content: "linkedin.com/in/selva-kumar",
-                href: "https://linkedin.com/in/selva-kumar"
+                content: "linkedin.com/in/selva-full-stack-developer",
+                href: "https://linkedin.com/in/selva-full-stack-developer"
               },
               {
                 icon: <FaMapMarkerAlt className="text-blue-600" size={20} />,

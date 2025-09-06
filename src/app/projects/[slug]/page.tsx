@@ -79,7 +79,7 @@ const ImageSlider = ({ images, title, onImageClick }: {
   return (
     <div className="relative w-full">
       {/* Main slider container */}
-      <div className="relative w-full h-96 rounded-xl overflow-hidden shadow-xl bg-gray-100 dark:bg-gray-800">
+      <div className="relative w-full h-96 rounded-xl overflow-hidden shadow-xl bg-gray-100">
         <div
           className="flex transition-transform duration-500 ease-in-out h-full"
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -100,7 +100,7 @@ const ImageSlider = ({ images, title, onImageClick }: {
               />
               {/* Overlay on hover */}
               <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <div className="bg-white/90 dark:bg-gray-900/90 px-3 py-1 rounded-full text-sm font-medium">
+                <div className="bg-white/90  px-3 py-1 rounded-full text-sm font-medium">
                   Click to expand
                 </div>
               </div>
@@ -113,14 +113,14 @@ const ImageSlider = ({ images, title, onImageClick }: {
           <>
             <button
               onClick={(e) => { e.stopPropagation(); prevSlide(); }}
-              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-gray-900/80 hover:bg-white dark:hover:bg-gray-900 p-2 rounded-full shadow-lg transition-all duration-200 z-10"
+              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80  hover:bg-white  p-2 rounded-full shadow-lg transition-all duration-200 z-10"
               aria-label="Previous image"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={(e) => { e.stopPropagation(); nextSlide(); }}
-              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-gray-900/80 hover:bg-white dark:hover:bg-gray-900 p-2 rounded-full shadow-lg transition-all duration-200 z-10"
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80  hover:bg-white  p-2 rounded-full shadow-lg transition-all duration-200 z-10"
               aria-label="Next image"
             >
               <ChevronRight className="w-5 h-5" />
@@ -132,7 +132,7 @@ const ImageSlider = ({ images, title, onImageClick }: {
         {images.length > 1 && (
           <button
             onClick={(e) => { e.stopPropagation(); setIsPlaying(!isPlaying); }}
-            className="absolute top-4 right-4 bg-white/80 dark:bg-gray-900/80 hover:bg-white dark:hover:bg-gray-900 p-2 rounded-full shadow-lg transition-all duration-200 z-10"
+            className="absolute top-4 right-4 bg-white/80  hover:bg-white p-2 rounded-full shadow-lg transition-all duration-200 z-10"
             aria-label={isPlaying ? "Pause slideshow" : "Play slideshow"}
           >
             {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
@@ -154,7 +154,7 @@ const ImageSlider = ({ images, title, onImageClick }: {
               onClick={() => goToSlide(index)}
               className={`w-3 h-3 rounded-full transition-all duration-200 ${index === currentIndex
                 ? 'bg-yellow-500 scale-110'
-                : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
+                : 'bg-gray-300  hover:bg-gray-400 '
                 }`}
               aria-label={`Go to slide ${index + 1}`}
             />
@@ -170,8 +170,8 @@ const ImageSlider = ({ images, title, onImageClick }: {
               key={index}
               onClick={() => goToSlide(index)}
               className={`relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 transition-all duration-200 ${index === currentIndex
-                ? 'ring-2 ring-yellow-500 ring-offset-2 ring-offset-white dark:ring-offset-gray-900'
-                : 'hover:ring-2 hover:ring-gray-300 dark:hover:ring-gray-600'
+                ? 'ring-2 ring-yellow-500 ring-offset-2 ring-offset-white'
+                : 'hover:ring-2 hover:ring-gray-300 '
                 }`}
             >
               <Image
@@ -417,35 +417,42 @@ export default function ProjectDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors duration-300">
+    <div className="min-h-screen bg-white  text-gray-800 transition-colors duration-300">
       {/* Header */}
-      <header className="sticky top-0 z-10 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm px-3 py-2 border-b border-gray-200 dark:border-gray-700 shadow-sm">
-        <div className="max-w-5xl mx-auto flex items-center">
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-sm px-3 py-2 h-24 border-b border-gray-200 shadow-sm">
+        <div className="relative flex items-center justify-center h-full">
+
+          {/* Back Button - moved a bit inside */}
           <button
             onClick={() => router.back()}
-            className="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            className="absolute left-20 p-2 rounded-full hover:bg-gray-100 transition-colors"
             aria-label="Go back"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-10 h-10" />
           </button>
-          <h1 className="ml-2 text-lg font-semibold text-gray-900 dark:text-white">
-            {project.title}
-          </h1>
-          {project.launched && (
-            <span className="ml-2 px-2 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 text-[11px] font-medium rounded-full flex items-center">
-              <Sparkles className="w-3 h-3 mr-1" />
-              Live
-            </span>
-          )}
+
+          {/* Center Content */}
+          <div className="relative flex  items-center">
+            <h1 className="text-lg font-semibold text-gray-900">
+              {project.title}
+            </h1>
+
+            {/* Live Badge - positioned under the title */}
+            {project.launched && (
+              <span className="mt-1 flex items-center px-2 py-0.5 bg-green-100 text-green-800 text-[11px] font-medium rounded-full">
+                <Sparkles className="w-3 h-3 mr-1" />
+                Live
+              </span>
+            )}
+          </div>
         </div>
       </header>
-
       {/* Main Content */}
-      <main className="px-4 py-8 max-w-5xl mx-auto">
+      <main className="px-14 py-8 ">
         {/* Gallery Section with Slider */}
         {project.pictures && project.pictures.length > 0 && (
-          <section className="mb-10">
-            <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Project Gallery</h2>
+          <section className="mb-10" style={{ padding: "2rem 3.5rem" }}>
+            <h2 className="text-2xl font-bold mb-4 text-gray-900 " style={{ marginBottom: "1rem" }}>Project Gallery</h2>
             <ImageSlider
               images={project.pictures}
               title={project.title}
@@ -456,8 +463,8 @@ export default function ProjectDetailPage() {
 
         {/* Video Section */}
         {project.videoPath && (
-          <section className="mb-10">
-            <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Project Demo</h2>
+          <section className="mb-10" style={{ padding: "2rem 3.5rem" }}>
+            <h2 className="text-2xl font-bold mb-4 text-gray-900 " style={{ marginBottom: "1rem" }}>Project Demo</h2>
             <div className="bg-black rounded-xl overflow-hidden shadow-xl">
               <video
                 src={project.videoPath}
@@ -470,9 +477,9 @@ export default function ProjectDetailPage() {
         )}
 
         {/* Project Overview */}
-        <section className="mb-10">
+        <section className="mb-10" style={{ padding: "2rem 3.5rem" }} >
           <div className="prose dark:prose-invert max-w-none">
-            <h2 className="flex items-center gap-2 text-2xl font-bold mb-4 text-gray-900 dark:text-white">
+            <h2 className="flex items-center gap-2 text-2xl font-bold mb-4 text-gray-900 " style={{ marginBottom: "1rem" }}>
               <Layers className="w-6 h-6 text-yellow-500" />
               Project Overview
             </h2>
@@ -494,16 +501,17 @@ export default function ProjectDetailPage() {
         </section>
 
         {/* Tech Stack */}
-        <section className="mb-10">
-          <h2 className="flex items-center gap-2 text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+        <section className="mb-10 " style={{ padding: "2rem 3.5rem" }}>
+
+          <h2 className="flex items-center gap-2 text-2xl font-bold mb-6 text-gray-900 " style={{ marginBottom: "1rem" }}>
             <Code className="w-6 h-6 text-yellow-500" />
             Technology Stack
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Frontend */}
-            <div className="bg-gray-50 dark:bg-gray-800 p-5 rounded-xl shadow-sm">
-              <h3 className="flex items-center gap-2 text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200">
+            <div className="bg-gray-50  p-5 rounded-xl shadow-sm">
+              <h3 className="flex items-center gap-2 text-lg font-semibold mb-4 text-gray-800 ">
                 <Monitor className="w-5 h-5 text-yellow-500" />
                 Frontend
               </h3>
@@ -518,8 +526,8 @@ export default function ProjectDetailPage() {
             </div>
 
             {/* Backend */}
-            <div className="bg-gray-50 dark:bg-gray-800 p-5 rounded-xl shadow-sm">
-              <h3 className="flex items-center gap-2 text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200">
+            <div className="bg-gray-50  p-5 rounded-xl shadow-sm">
+              <h3 className="flex items-center gap-2 text-lg font-semibold mb-4 text-gray-800 ">
                 <Server className="w-5 h-5 text-yellow-500" />
                 Backend
               </h3>
@@ -534,8 +542,8 @@ export default function ProjectDetailPage() {
             </div>
 
             {/* Other Tools */}
-            <div className="bg-gray-50 dark:bg-gray-800 p-5 rounded-xl shadow-sm">
-              <h3 className="flex items-center gap-2 text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200">
+            <div className="bg-gray-50 p-5 rounded-xl shadow-sm">
+              <h3 className="flex items-center gap-2 text-lg font-semibold mb-4 text-gray-800 ">
                 <Settings className="w-5 h-5 text-yellow-500" />
                 Other Tools
               </h3>
@@ -552,17 +560,17 @@ export default function ProjectDetailPage() {
         </section>
 
         {/* Project Details */}
-        <section className="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl shadow-sm">
-          <h2 className="flex items-center gap-2 text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+        <section className="bg-gray-50  p-6 rounded-xl shadow-sm" style={{ padding: "2rem 3.5rem" }}>
+          <h2 className="flex items-center gap-2 text-2xl font-bold mb-6 text-gray-900" style={{ marginBottom: "1rem" }}>
             <HardDrive className="w-6 h-6 text-yellow-500" />
             Project Details
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="flex items-center gap-3">
-              <Clock className="w-5 h-5 text-gray-500 dark:text-gray-400 flex-shrink-0 relative -top-[1px]" />
+              <Clock className="w-5 h-5 text-gray-500  flex-shrink-0 relative -top-[1px]" />
               <div className="leading-tight">
-                <p className="text-sm text-gray-500 dark:text-gray-400">Duration</p>
+                <p className="text-sm text-gray-500 ">Duration</p>
                 <p className="font-medium">{project.duration}</p>
               </div>
             </div>
@@ -570,9 +578,9 @@ export default function ProjectDetailPage() {
 
             {project.launchDate && (
               <div className="flex items-center gap-3">
-                <Calendar className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                <Calendar className="w-5 h-5 text-gray-500 " />
                 <div>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Launch Date</p>
+                  <p className="text-sm text-gray-500 ">Launch Date</p>
                   <p className="font-medium">
                     {new Date(project.launchDate).toLocaleDateString('en-US', {
                       year: 'numeric',

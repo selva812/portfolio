@@ -1,22 +1,18 @@
 "use client"
-import { useDispatch, useSelector } from "react-redux";
-import { RootState, AppDispatch } from "@/store/store";
-import { toggleTheme } from "@/store/themeslicer";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/store/store";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaGithub, FaEnvelope, FaPhone, FaLinkedin, FaBars, FaTimes } from 'react-icons/fa';
+import { FaGithub, FaEnvelope, FaPhone, FaLinkedin } from 'react-icons/fa';
 import HeroSection from "@/components/herosection";
 import AboutSidebar from "@/components/about";
 import Experience from "@/components/Experience";
 import SkillsSection from "@/components/Skills";
 import EducationSection from "@/components/EducationSection";
-import Projects from "@/components/Projects";
 import ContactSection from "@/components/ContactSection";
-import Image from "next/image";
-
+import Projects from "@/components/Projects";
 
 export default function HeaderComponent() {
-  const theme = useSelector((state: RootState) => state.theme.mode);
   const dispatch = useDispatch<AppDispatch>();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -25,8 +21,8 @@ export default function HeaderComponent() {
   const navlist = [
     { name: "Home", id: "home" },
     { name: "About", id: "about" },
-    { name: "Skills", id: "skills" },
-    { name: "Projects", id: "projects" },
+    { name: "Experience", id: "experience" },
+    { name: "Projects", id: "project" },
     { name: "Contact", id: "contact" },
   ];
   useEffect(() => {
@@ -45,26 +41,7 @@ export default function HeaderComponent() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", theme === "dark");
 
-    // Handle scroll effect
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [theme]);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-    if (!isMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-  };
   const handleNavClick = (id: string) => {
     setActiveTab(id);
     setIsMenuOpen(false);
@@ -80,74 +57,93 @@ export default function HeaderComponent() {
   };
   return (
     <>
-      <header
-        className={`fixed w-full z-50 transition-all duration-300 ${scrolled
-          ? "bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm shadow-sm "
-          : "bg-transparent "
-          }`}
-      >
-        <div className="container mx-auto px-4 flex justify-between items-center">
-          {/* Logo */}
-          <div className="flex items-center">
-            <Image
-              src={'/images/slogo.gif'}
-              alt="logo"
-              width={40}
-              height={40}
-              className="h-8 w-10 md:h-12 md:w-12 transition-all duration-300"
-            />
-            <span className="ml-2 text-xl font-bold text-gray-800 dark:text-white">Selva</span>
-          </div>
-
-          <nav className="hidden md:flex gap-6">
-            {navlist.map((item, index) => (
-              <div
-                key={`nav-${item.id}`}
-                onClick={() => handleNavClick(item.id)}
-                className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white font-medium transition-colors duration-300 relative group"
-              >
-                {item.name}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
-              </div>
-            ))}
-          </nav>
-        </div>
-
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="md:hidden bg-white dark:bg-gray-900"
+      <header className={`fixed top-2 left-1/2 transform -translate-x-1/2 w-[90%] z-50 transition-all duration-300 ${scrolled ? 'shadow-2xl' : 'shadow-lg'}`}>
+        <div className={`rounded-2xl transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-md border border-gray-200' : 'bg-white/80 backdrop-blur-sm border border-gray-100'}`}>
+          <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+            {/* Logo - Left */}
+            <motion.div 
+              className="flex items-center"
+              whileHover={{ scale: 1.05 }}
             >
-              <div className="container mx-auto px-4 py-4 flex flex-col">
-                {navlist.map((item, index) => (
-                  <a
-                    key={`mobnav-${item.id}`}
-                    href={`#${item.id}`}
-                    onClick={() => {
-                      setIsMenuOpen(false);
-                      document.body.style.overflow = "auto";
-                    }}
-                    className="py-3 px-4 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors duration-300 font-medium"
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                S
+              </div>
+              <span className="ml-3 text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Selva
+              </span>
+            </motion.div>
+
+            {/* Navigation - Center */}
+            <nav className="hidden md:flex items-center justify-center flex-1">
+              <div className="flex gap-1 bg-gray-100 p-1.5 rounded-full">
+                {navlist.map((item) => (
+                  <motion.button
+                    key={item.id}
+                    onClick={() => handleNavClick(item.id)}
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                      activeTab === item.id
+                        ? 'bg-white text-blue-600 shadow-md'
+                        : 'text-gray-600 hover:text-blue-600 hover:bg-white/50'
+                    }`}
+                    whileHover={{ y: -2 }}
+                    whileTap={{ scale: 0.95 }}
                   >
                     {item.name}
-                  </a>
+                  </motion.button>
                 ))}
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+            </nav>
+
+            {/* Mobile Menu Button - Right */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+            >
+              <motion.div
+                animate={{ rotate: isMenuOpen ? 180 : 0 }}
+                transition={{ duration: 0.3 }}
+                className="w-6 h-6 flex items-center justify-center"
+              >
+                {isMenuOpen ? '✕' : '☰'}
+              </motion.div>
+            </button>
+          </div>
+
+          {/* Mobile Menu */}
+          <AnimatePresence>
+            {isMenuOpen && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                className="md:hidden bg-white border-t border-gray-200 overflow-hidden"
+              >
+                <div className="container mx-auto px-4 py-3">
+                  {navlist.map((item) => (
+                    <button
+                      key={item.id}
+                      onClick={() => handleNavClick(item.id)}
+                      className={`block w-full text-left py-3 px-4 rounded-lg mb-1 transition-all ${
+                        activeTab === item.id
+                          ? 'bg-blue-50 text-blue-600 border-l-4 border-blue-600'
+                          : 'text-gray-600 hover:bg-gray-50'
+                      }`}
+                    >
+                      {item.name}
+                    </button>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </header>
       <main className="container mx-auto px-6 py-5">
         <section id="home">
           <HeroSection />
         </section>
 
-        <div className="flex flex-col md:flex-row gap-8">
+        <div className="flex flex-col md:flex-row gap-8 bg-white">
           <div className="w-full md:flex-1 space-y-16">
             <section id="about"><AboutSidebar /></section>
             <section id="experience"><Experience /></section>
@@ -162,7 +158,7 @@ export default function HeaderComponent() {
 
       {/* Footer */}
       <footer className="bg-white dark:bg-gray-800 shadow-md mt-2 sticky bottom-0 w-full z-20">
-        <div className="container mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between text-center md:text-left">
+        <div className="container mx-auto px-6 py-3 flex flex-col md:flex-row items-center justify-between text-center md:text-left">
           <p>© {new Date().getFullYear()} S. Selva. All rights reserved.</p>
 
           {/* Social Links */}
