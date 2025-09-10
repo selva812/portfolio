@@ -161,7 +161,7 @@
 import { motion } from "framer-motion";
 
 export default function AboutSection() {
-  const containerVariants = {
+  const containerVariants :any= {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -169,7 +169,7 @@ export default function AboutSection() {
     },
   };
 
-  const slideInFromLeft = {
+  const slideInFromLeft:any = {
     hidden: { opacity: 0, x: -100, rotateY: -15 },
     visible: { 
       opacity: 1, 
@@ -179,7 +179,7 @@ export default function AboutSection() {
     }
   };
 
-  const slideInFromRight = {
+  const slideInFromRight:any = {
     hidden: { opacity: 0, x: 100, rotateY: 15 },
     visible: { 
       opacity: 1, 
@@ -189,7 +189,7 @@ export default function AboutSection() {
     }
   };
 
-  const fadeInScale = {
+  const fadeInScale:any = {
     hidden: { opacity: 0, scale: 0.8, y: 50 },
     visible: { 
       opacity: 1, 
@@ -199,7 +199,7 @@ export default function AboutSection() {
     }
   };
 
-  const staggerContainer = {
+  const staggerContainer:any = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,

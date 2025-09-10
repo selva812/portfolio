@@ -50,7 +50,7 @@ const EducationSection = () => {
     }
   };
 
-  const item = {
+  const item:any = {
     hidden: { 
       opacity: 0,
       y: 50,
@@ -68,7 +68,7 @@ const EducationSection = () => {
     }
   };
 
-  const floatingVariants = {
+  const floatingVariants:any = {
     initial: { y: 0 },
     float: {
       y: [0, -15, 0],

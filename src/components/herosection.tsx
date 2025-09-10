@@ -256,7 +256,7 @@ export default function HeroSection() {
     };
   }, []);
 
-  const containerVariants = {
+  const containerVariants:any = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -267,7 +267,7 @@ export default function HeroSection() {
     },
   };
 
-  const itemVariants = {
+  const itemVariants:any = {
     hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
@@ -279,7 +279,7 @@ export default function HeroSection() {
     },
   };
 
-  const mobileItemVariants = {
+  const mobileItemVariants:any = {
     hidden: { opacity: 0, x: -50 },
     visible: {
       opacity: 1,
@@ -291,7 +291,7 @@ export default function HeroSection() {
     },
   };
 
-  const floatingVariants = {
+  const floatingVariants:any = {
     initial: { y: 0 },
     animate: {
       y: [-10, 10, -10],
@@ -303,7 +303,7 @@ export default function HeroSection() {
     },
   };
 
-  const mobileFloatingVariants = {
+  const mobileFloatingVariants:any = {
     initial: { x: 0 },
     animate: {
       x: [-5, 5, -5],

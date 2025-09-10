@@ -158,7 +158,7 @@ const Experience = () => {
     threshold: 0.1
   });
 
-  const container = {
+  const container:any = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
@@ -166,7 +166,7 @@ const Experience = () => {
     }
   };
 
-  const slideUp = {
+  const slideUp:any = {
     hidden: { opacity: 0, y: 100 },
     show: { 
       opacity: 1, 
@@ -175,7 +175,7 @@ const Experience = () => {
     }
   };
 
-  const slideInLeft = {
+  const slideInLeft:any = {
     hidden: { opacity: 0, x: -100 },
     show: { 
       opacity: 1, 
@@ -184,7 +184,7 @@ const Experience = () => {
     }
   };
 
-  const slideInRight = {
+  const slideInRight:any = {
     hidden: { opacity: 0, x: 100 },
     show: { 
       opacity: 1, 
