@@ -19,13 +19,13 @@ const educationHistory: Education[] = [
     degree: 'Higher Secondary Certificate (HSC)',
     institution: 'S.D.A Matriculation Higher Secondary School',
     period: '2017',
-    percentage: '91.4%'
+    percentage: '79.4%'
   },
   {
     degree: 'Secondary School Leaving Certificate (SSLC)',
     institution: 'S.D.A Matriculation Higher Secondary School',
     period: '2015',
-    percentage: '79.4%'
+    percentage: '91.4%'
   }
 ];
 

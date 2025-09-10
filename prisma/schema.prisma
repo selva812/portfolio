@@ -14,23 +14,28 @@ datasource db {
 }
 
 model Project {
-  id               String   @id @default(uuid())
+  id               String      @id @default(uuid())
   title            String
-  slug             String   @unique
+  slug             String      @unique
   shortDescription String
   content          String
-  frontendTools    Json     // Store as JSON array
-  backendTools     Json
-  otherTools       Json
-  pictures         Json     // Store array of images as JSON
-  videoPath        String?  // Optional
+  frontendTools    Json        // Store as JSON array
+  backendTools     Json        // Store as JSON array  
+  otherTools       Json        // Store as JSON array
+  pictures         Json        // Store array of images as JSON
+  videoPath        String?     // Optional
   duration         String
-  launched         Boolean  @default(false)
+  launched         Boolean     @default(false)
   launchDate       DateTime?
   officialLink     String?
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  category         String?    @default("web")     // New field for project type
+  featured         Boolean     @default(false)   // New field for featured projects
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
 
   @@index([title])
   @@index([launched])
+
+  @@index([featured])     // Index for featuring projects
 }
+
