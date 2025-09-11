@@ -1,6 +1,4 @@
 "use client"
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/store/store";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaGithub, FaEnvelope, FaPhone, FaLinkedin } from 'react-icons/fa';
@@ -13,7 +11,6 @@ import ContactSection from "@/components/ContactSection";
 import Projects from "@/components/Projects";
 
 export default function HeaderComponent() {
-  const dispatch = useDispatch<AppDispatch>();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeTab, setActiveTab] = useState('about');
@@ -65,8 +62,8 @@ export default function HeaderComponent() {
               className="flex items-center"
               whileHover={{ scale: 1.05 }}
             >
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                S
+              <div className="w-10 h-10 bg-gradient-to-br rounded-full flex items-center justify-center text-white font-bold text-lg">
+               <img src={'/images/logo.png'}/>
               </div>
               <span className="ml-3 text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 Selva

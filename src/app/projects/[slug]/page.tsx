@@ -417,29 +417,28 @@ export default function ProjectDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white  text-gray-800 transition-colors duration-300">
+    <div className="min-h-screen bg-white text-gray-800 transition-colors duration-300 p-10">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-sm px-3 py-2 h-24 border-b border-gray-200 shadow-sm">
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-sm px-4 py-4 h-20 border-b border-gray-200 shadow-sm">
         <div className="relative flex items-center justify-center h-full">
-
-          {/* Back Button - moved a bit inside */}
+          {/* Back Button */}
           <button
             onClick={() => router.back()}
-            className="absolute left-20 p-2 rounded-full hover:bg-gray-100 transition-colors"
+            className="absolute left-4 p-2 rounded-full hover:bg-gray-100 transition-colors"
             aria-label="Go back"
           >
-            <ArrowLeft className="w-10 h-10" />
+            <ArrowLeft className="w-6 h-6" />
           </button>
 
           {/* Center Content */}
-          <div className="relative flex  items-center">
-            <h1 className="text-lg font-semibold text-gray-900">
+          <div className="flex flex-col items-center">
+            <h1 className="text-xl font-semibold text-gray-900 text-center">
               {project.title}
             </h1>
 
-            {/* Live Badge - positioned under the title */}
+            {/* Live Badge */}
             {project.launched && (
-              <span className="mt-1 flex items-center px-2 py-0.5 bg-green-100 text-green-800 text-[11px] font-medium rounded-full">
+              <span className="mt-1 flex items-center px-2 py-0.5 bg-green-100 text-green-800 text-xs font-medium rounded-full">
                 <Sparkles className="w-3 h-3 mr-1" />
                 Live
               </span>
@@ -447,12 +446,13 @@ export default function ProjectDetailPage() {
           </div>
         </div>
       </header>
+
       {/* Main Content */}
-      <main className="px-14 py-8 ">
+      <main className="px-4 sm:px-6 lg:px-8 py-6">
         {/* Gallery Section with Slider */}
         {project.pictures && project.pictures.length > 0 && (
-          <section className="mb-10" style={{ padding: "2rem 3.5rem" }}>
-            <h2 className="text-2xl font-bold mb-4 text-gray-900 " style={{ marginBottom: "1rem" }}>Project Gallery</h2>
+          <section className="mb-8" style={{padding: '5rem'}}>
+            <h2 className="text-xl font-bold mb-4 text-gray-900">Project Gallery</h2>
             <ImageSlider
               images={project.pictures}
               title={project.title}
@@ -463,9 +463,9 @@ export default function ProjectDetailPage() {
 
         {/* Video Section */}
         {project.videoPath && (
-          <section className="mb-10" style={{ padding: "2rem 3.5rem" }}>
-            <h2 className="text-2xl font-bold mb-4 text-gray-900 " style={{ marginBottom: "1rem" }}>Project Demo</h2>
-            <div className="bg-black rounded-xl overflow-hidden shadow-xl">
+          <section className="mb-8">
+            <h2 className="text-xl font-bold mb-4 text-gray-900">Project Demo</h2>
+            <div className="bg-black rounded-lg overflow-hidden shadow-lg">
               <video
                 src={project.videoPath}
                 controls
@@ -477,114 +477,120 @@ export default function ProjectDetailPage() {
         )}
 
         {/* Project Overview */}
-        <section className="mb-10" style={{ padding: "2rem 3.5rem" }} >
-          <div className="prose dark:prose-invert max-w-none">
-            <h2 className="flex items-center gap-2 text-2xl font-bold mb-4 text-gray-900 " style={{ marginBottom: "1rem" }}>
-              <Layers className="w-6 h-6 text-yellow-500" />
+        <section className="mb-8" style={{padding: '5rem'}}>
+          <div className="prose max-w-none">
+            <h2 className="flex items-center gap-2 text-xl font-bold mb-4 text-gray-900">
+              <Layers className="w-5 h-5 text-yellow-500" />
               Project Overview
             </h2>
-            <p className="text-lg text-gray-700 dark:text-gray-300 mb-6">
+            <p className="text-gray-700 mb-4">
               {project.shortDescription}
             </p>
 
             <div
-              className="prose-lg dark:prose-invert prose-a:text-yellow-600 hover:prose-a:text-yellow-500 prose-img:rounded-lg prose-img:shadow-md"
+              className="prose prose-lg prose-a:text-yellow-600 hover:prose-a:text-yellow-500 prose-img:rounded-lg prose-img:shadow-sm"
               dangerouslySetInnerHTML={{
                 __html: `
-      <div class="content-wrapper">
-        ${project.content.replace(/<html>|<\/html>|<head>|<\/head>|<body>|<\/body>/gi, '')}
-      </div>
-    `
+              <div class="content-wrapper">
+                ${project.content.replace(/<html>|<\/html>|<head>|<\/head>|<body>|<\/body>/gi, '')}
+              </div>
+            `
               }}
             />
           </div>
         </section>
 
-        {/* Tech Stack */}
-        <section className="mb-10 " style={{ padding: "2rem 3.5rem" }}>
+        {/* Tech Stack - Conditionally rendered */}
+        {(project.frontendTools?.length > 0 || project.backendTools?.length > 0 || project.otherTools?.length > 0) && (
+          <section className="mb-8" style={{padding: '5rem'}}>
+            <h2 className="flex items-center gap-2 text-xl font-bold mb-4 text-gray-900">
+              <Code className="w-5 h-5 text-yellow-500" />
+              Technology Stack
+            </h2>
 
-          <h2 className="flex items-center gap-2 text-2xl font-bold mb-6 text-gray-900 " style={{ marginBottom: "1rem" }}>
-            <Code className="w-6 h-6 text-yellow-500" />
-            Technology Stack
-          </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {/* Frontend - Only show if there are frontend tools */}
+              {project.frontendTools?.length > 0 && (
+                <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
+                  <h3 className="flex items-center gap-2 font-semibold mb-3 text-gray-800">
+                    <Monitor className="w-4 h-4 text-yellow-500" />
+                    Frontend
+                  </h3>
+                  <ul className="space-y-1">
+                    {project.frontendTools.map((tool, idx) => (
+                      <li key={idx} className="flex items-center gap-2 text-sm">
+                        <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 flex-shrink-0"></span>
+                        {tool}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Frontend */}
-            <div className="bg-gray-50  p-5 rounded-xl shadow-sm">
-              <h3 className="flex items-center gap-2 text-lg font-semibold mb-4 text-gray-800 ">
-                <Monitor className="w-5 h-5 text-yellow-500" />
-                Frontend
-              </h3>
-              <ul className="space-y-2">
-                {project.frontendTools.map((tool, idx) => (
-                  <li key={idx} className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-yellow-400"></span>
-                    {tool}
-                  </li>
-                ))}
-              </ul>
+              {/* Backend - Only show if there are backend tools */}
+              {project.backendTools?.length > 0 && (
+                <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
+                  <h3 className="flex items-center gap-2 font-semibold mb-3 text-gray-800">
+                    <Server className="w-4 h-4 text-yellow-500" />
+                    Backend
+                  </h3>
+                  <ul className="space-y-1">
+                    {project.backendTools.map((tool, idx) => (
+                      <li key={idx} className="flex items-center gap-2 text-sm">
+                        <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 flex-shrink-0"></span>
+                        {tool}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Other Tools - Only show if there are other tools */}
+              {project.otherTools?.length > 0 && (
+                <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
+                  <h3 className="flex items-center gap-2 font-semibold mb-3 text-gray-800">
+                    <Settings className="w-4 h-4 text-yellow-500" />
+                    Other Tools
+                  </h3>
+                  <ul className="space-y-1">
+                    {project.otherTools.map((tool, idx) => (
+                      <li key={idx} className="flex items-center gap-2 text-sm">
+                        <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 flex-shrink-0"></span>
+                        {tool}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
-
-            {/* Backend */}
-            <div className="bg-gray-50  p-5 rounded-xl shadow-sm">
-              <h3 className="flex items-center gap-2 text-lg font-semibold mb-4 text-gray-800 ">
-                <Server className="w-5 h-5 text-yellow-500" />
-                Backend
-              </h3>
-              <ul className="space-y-2">
-                {project.backendTools.map((tool, idx) => (
-                  <li key={idx} className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-yellow-400"></span>
-                    {tool}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Other Tools */}
-            <div className="bg-gray-50 p-5 rounded-xl shadow-sm">
-              <h3 className="flex items-center gap-2 text-lg font-semibold mb-4 text-gray-800 ">
-                <Settings className="w-5 h-5 text-yellow-500" />
-                Other Tools
-              </h3>
-              <ul className="space-y-2">
-                {project.otherTools.map((tool, idx) => (
-                  <li key={idx} className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-yellow-400"></span>
-                    {tool}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* Project Details */}
-        <section className="bg-gray-50  p-6 rounded-xl shadow-sm" style={{ padding: "2rem 3.5rem" }}>
-          <h2 className="flex items-center gap-2 text-2xl font-bold mb-6 text-gray-900" style={{ marginBottom: "1rem" }}>
-            <HardDrive className="w-6 h-6 text-yellow-500" />
+        <section className="bg-gray-50 p-5 rounded-lg shadow-sm " style={{paddingRight: '5rem',paddingLeft: '5rem',marginBottom: '3rem'}}>
+          <h2 className="flex items-center gap-2 text-xl font-bold mb-4 text-gray-900">
+            <HardDrive className="w-5 h-5 text-yellow-500" />
             Project Details
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="flex items-center gap-3">
-              <Clock className="w-5 h-5 text-gray-500  flex-shrink-0 relative -top-[1px]" />
-              <div className="leading-tight">
-                <p className="text-sm text-gray-500 ">Duration</p>
-                <p className="font-medium">{project.duration}</p>
+              <Clock className="w-5 h-5 text-gray-500 flex-shrink-0" />
+              <div>
+                <p className="text-sm text-gray-500">Duration</p>
+                <p className="font-medium text-sm">{project.duration}</p>
               </div>
             </div>
 
-
             {project.launchDate && (
               <div className="flex items-center gap-3">
-                <Calendar className="w-5 h-5 text-gray-500 " />
+                <Calendar className="w-5 h-5 text-gray-500 flex-shrink-0" />
                 <div>
-                  <p className="text-sm text-gray-500 ">Launch Date</p>
-                  <p className="font-medium">
+                  <p className="text-sm text-gray-500">Launch Date</p>
+                  <p className="font-medium text-sm">
                     {new Date(project.launchDate).toLocaleDateString('en-US', {
                       year: 'numeric',
-                      month: 'long',
+                      month: 'short',
                       day: 'numeric'
                     })}
                   </p>
@@ -593,14 +599,14 @@ export default function ProjectDetailPage() {
             )}
 
             {project.officialLink && (
-              <div className="sm:col-span-2">
+              <div className="sm:col-span-2 mt-2">
                 <Link
                   href={project.officialLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg transition-colors"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-md transition-colors text-sm"
                 >
-                  <Globe className="w-5 h-5" />
+                  <Globe className="w-4 h-4" />
                   Visit Official Website
                   <ExternalLink className="w-4 h-4" />
                 </Link>

@@ -4,7 +4,6 @@ import { NextResponse } from 'next/server'
 
 export async function GET() {
   try {
-    console.log('API Route: Starting to fetch projects');
     
     const projects = await prisma.project.findMany({
       select: {
@@ -23,8 +22,6 @@ export async function GET() {
       },
     });
 
-    console.log(`API Route: Found ${projects.length} projects`);
-
     const projectsWithFirstPicture = projects.map((project: any) => ({
       ...project,
       frontendTools: project.frontendTools ?? [],
@@ -35,9 +32,6 @@ export async function GET() {
           ? project.pictures[0]
           : null,
     }));
-
-    console.log('API Route: Successfully processed projects');
-    console.log('Sample project:', projectsWithFirstPicture[0]);
 
     return NextResponse.json(projectsWithFirstPicture);
 

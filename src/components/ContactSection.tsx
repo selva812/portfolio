@@ -141,7 +141,7 @@ const ContactSection = () => {
                 whileHover={{ x: 5 }}
                 className="flex items-start p-4 rounded-xl border border-gray-200 hover:border-blue-300 shadow-sm hover:shadow-md transition-all duration-300 group"
               >
-                <div className="p-3 mr-4 bg-blue-100 rounded-full group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                <div className="p-3 mr-4 bg-blue-100 rounded-full group-hover:bg-blue-100 group-hover:text-white transition-colors">
                   {contact.icon}
                 </div>
                 <div>
